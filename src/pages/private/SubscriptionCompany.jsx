@@ -82,14 +82,12 @@ const SubscriptionCompany = () => {
     try {
       setIsLoadingSend(true);
 
-      console.log('data', data);
+      const response = await saveMembershipPayment(data);
+      const dataRes = buildSuccessResponse(response);
 
-      // const response = await saveMembershipPayment(data);
-      // const dataRes = buildSuccessResponse(response);
-
-      // dataRes.success ? toast.success(dataRes.msg) : toast.error(dataRes.msg);
-      // dataRes.success && reset();
-      // dataRes.success && getMembershipData();
+      dataRes.success ? toast.success(dataRes.msg) : toast.error(dataRes.msg);
+      dataRes.success && reset();
+      dataRes.success && getMembershipData();
 
       setIsLoadingSend(false);
     } catch (error) {
