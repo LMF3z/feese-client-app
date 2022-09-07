@@ -1,0 +1,329 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: Elephant;
+  src: url('../assets/fonts/Elephant.ttf');
+}
+
+* {
+  box-sizing: border-box;
+}
+
+@layer base {
+  html,
+  body {
+    padding: 0;
+    margin: 0;
+    font-family: Elephant, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+      Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    @apply bg-primaryColor text-textWhite tracking-wide;
+  }
+
+  h1 {
+    @apply text-3xl text-white capitalize;
+  }
+  
+  /* span {
+    @apply font-bold text-white;
+  } */
+  
+  label {
+    @apply text-white;
+  }
+  
+  option {
+    @apply bg-custom_bg hover:bg-custom_bg;
+  }
+}
+
+.react-autosuggest__suggestions-container--open {
+  max-height: 100px;
+  overflow-y: auto;
+}
+
+::-webkit-scrollbar {
+  width: 8px;     /* Tamaño del scroll en vertical */
+  height: 8px;    /* Tamaño del scroll en horizontal */
+  /* display: none;   */
+}
+::-webkit-scrollbar-thumb {
+  /* @apply bg-dark; */
+  @apply bg-[#010212];
+  /* background: #b90909; */
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-primaryColor;
+  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+::-webkit-scrollbar-thumb:active {
+  @apply bg-primaryColor;
+}
+
+::-webkit-scrollbar-track {
+  /* background: #e1e1e1; */
+  @apply bg-primaryColor;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-track:hover,
+::-webkit-scrollbar-track:active {
+  background: #d4d4d4;
+}
+
+/* * menu sude bar */
+
+.container_menu {
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 500ms ease;
+}
+
+.container_menu_active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.nav_inactive {
+  position: relative;
+  transition: all 500ms ease;
+  transform: translateX(-100%);
+}
+
+.nav_active {
+  transform: translateX(0%);
+}
+
+/* * inputs */
+/* .input {
+  line-height: 28px;
+  border: 2px solid transparent;
+  border-bottom-color: #556ff7;
+  padding: .2rem 0;
+  outline: none;
+  background-color: transparent;
+  color: #ffffff;
+  transition: .3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  @apply text-base;
+ }
+ 
+ .input:focus, .input:hover {
+  outline: none;
+  padding: .2rem 1rem;
+  border-radius: 1rem;
+  @apply border border-theme_primary_color;
+ }
+ 
+ .input::placeholder {
+  @apply text-text_base_color;
+ }
+ 
+ .input:focus::placeholder {
+  opacity: 0;
+  transition: opacity .3s;
+ } */
+
+ .input {
+  @apply outline-none border-b-2 border-borderBaseColor bg-primaryColor w-full h-10 pr-5 text-xl text-white;
+ }
+
+ .input::placeholder { @apply text-placeholderColor font-bold; } 
+
+ /* * buttons */
+ /* From uiverse.io by @adamgiebl */
+.button {
+  font-family: inherit;
+  font-size: 20px;
+  /* background: royalblue; */
+  @apply bg-theme_primary_color;
+  color: white;
+  padding: 0.7em 1em;
+  padding-left: 0.9em;
+  display: flex;
+  align-items: center;
+  border: none;
+  border-radius: 16px;
+  cursor: pointer;
+  /* overflow: hidden;
+  transition: all 0.2s; */
+ }
+ 
+ .button span {
+  display: block;
+  margin-left: 0.3em;
+  transition: all 0.3s ease-in-out;
+ }
+ 
+ .button svg {
+  display: block;
+  transform-origin: center center;
+  transition: transform 0.3s ease-in-out;
+ }
+ 
+ /* .button:hover .svg-wrapper {
+  animation: fly-1 0.6s ease-in-out infinite alternate;
+ }
+ 
+ .button:hover svg {
+  transform: translateX(1.2em) rotate(45deg) scale(1.1);
+ }
+ 
+ .button:hover span {
+  transform: translateX(5em);
+ }
+ 
+ .button:active {
+  transform: scale(0.95);
+ }
+ 
+ @keyframes fly-1 {
+  from {
+   transform: translateY(0.1em);
+  }
+ 
+  to {
+   transform: translateY(-0.1em);
+  }
+ } */
+
+ .layout_containers {
+  @apply flex flex-col justify-start items-center text-center;
+ }
+
+ .form_container {
+   @apply w-full grid place-items-center text-center;
+ }
+
+ .container_square_form {
+   @apply w-full text-base;
+ }
+
+ /* * loadings */
+
+.ping {
+  --uib-size: 50px;
+  --uib-speed: 1s;
+  --uib-color: #3950cf;
+  position: relative;
+  height: var(--uib-size);
+  width: var(--uib-size);
+ }
+ 
+ .ping::before,
+ .ping::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+  background-color: var(--uib-color);
+  animation: pulse7132 var(--uib-speed) linear infinite;
+  transform: scale(0);
+  opacity: 0;
+ }
+ 
+ .ping::after {
+  animation-delay: calc(var(--uib-speed) / -2);
+ }
+ 
+ @keyframes pulse7132 {
+  0% {
+   transform: scale(0);
+   opacity: 1;
+  }
+ 
+  100% {
+   transform: scale(1);
+   opacity: 0;
+  }
+ }
+
+ /* * swipe */
+ .container_swipe {
+  @apply w-full h-full lg:mt-2 rounded-lg drop-shadow-2xl bg-white text-center
+}
+
+/* * custom keyFrames */
+@keyframes fadeIn {
+  from {
+    transform: scale(0)
+  } to {
+    transform: scale(1)
+  }  
+}
+
+@keyframes fadeOut {
+  from {
+    transform: scale(1)
+  } to {
+    transform: scale(0)
+  }
+}
+
+/* * custom classes */
+.height_header {
+  @apply h-12 lg:h-14;
+}
+
+.container_section {
+  @apply w-full min-h-[50vh] lg:w-2/4 py-2 text-base md:text-lg flex flex-col justify-start items-center mx-auto px-5;
+}
+
+.fadeIn {
+  animation: fadeIn 0.3s ease forwards;
+}
+
+.fadeOut {
+  animation: fadeOut 0.3s ease forwards;
+}
+
+.circular_images {
+  clip-path: circle(45%);
+}
+
+/* * tables */
+.custom_table {
+  @apply block lg:table w-full h-auto mt-3 lg:mt-10;
+}
+
+.custom_thead {
+  @apply hidden w-full text-xl rounded-t-lg;
+}
+
+.custom_tr_thead {
+  @apply w-full lg:flex lg:justify-between lg:items-center;
+}
+
+.custom_th_thead {
+  @apply w-full h-12 flex justify-center items-center font-bold opacity-5 align-middle capitalize;
+}
+
+.custom_tbody {
+  @apply block lg:inline-block lg:w-full rounded-b-lg;
+}
+
+.custom_tr_tbody {
+  @apply w-full h-auto inline-block lg:flex lg:justify-between lg:items-center mb-5 lg:mb-0 pb-2 text-base border-2 border-borderBaseColor rounded-lg lg:rounded-none;
+}
+
+.custom_td_tbody {
+  @apply block w-full h-8 lg:h-12 lg:flex lg:justify-center lg:items-center lg:my-4 pt-2 tracking-tight font-medium text-center capitalize;
+}
+
+/* h-8 lg:h-12 lg:flex lg:justify-center lg:items-center py-1 tracking-tight font-medium text-center */
+
+.custom_td_tbody_button {
+  @apply block w-full h-8 py-1 lg:flex lg:justify-center lg:items-center;
+}
