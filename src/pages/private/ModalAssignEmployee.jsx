@@ -117,7 +117,7 @@ const ModalAssignEmployee = ({ closeModal }) => {
 
         {isLoading && <Loading />}
 
-        <section className="w-full max-h-[50vh] flex flex-col justify-center items-center space-y-3 overflow-x-hidden overflow-y-auto">
+        <section className="w-full max-h-[50vh] pt-5 flex flex-col justify-center items-center space-y-3 overflow-x-hidden overflow-y-auto">
           {dataTableEmployee.length > 0 &&
             dataTableEmployee.map((employee) => (
               <ItemEmployeeAsig key={employee.id} employee={employee} />
