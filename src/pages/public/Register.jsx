@@ -27,8 +27,7 @@ const Register = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const registerCompany = async (data) => {
-
-    setIsLoading(true)
+    setIsLoading(true);
 
     try {
       const register = await companiesApi.registerCompany(data);
@@ -56,7 +55,6 @@ const Register = () => {
 
   return (
     <div className="w-full lg:w-2/4 layout_containers min-h-screen mx-auto overflow-auto">
-      
       <h1>registrar empresa</h1>
 
       {isLoading && <Loading />}
@@ -99,6 +97,17 @@ const Register = () => {
             placeholder="Correo electrónico *"
             register={register}
           />
+          {errors?.email_company?.message && (
+            <ShowErrorForm label={errors?.email_company?.message} />
+          )}
+        </div>
+
+        <div className="w-full h-full flex flex-col justify-center items-start">
+          <label className="text-xs">Tipo de empresa</label>
+          <div className="flex">
+            <input type="radio" placeholder="Prestación de servicios" />
+            <input type="radio" placeholder="Venta de productos" />
+          </div>
           {errors?.email_company?.message && (
             <ShowErrorForm label={errors?.email_company?.message} />
           )}

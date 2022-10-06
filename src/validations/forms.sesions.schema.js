@@ -4,20 +4,23 @@ const FormRegisterSchema = yup.object().shape({
   name_company: yup
     .string()
     .matches(/^[a-zA-Zá-üÁ-Ü ]+$/, 'Ingresa un nombre valido.')
-    .required(),
-  address_company: yup.string().required('Dirección es requerida.'),
+    .required('Campo requerido.'),
+  address_company: yup.string().required('campo requerido.'),
   // rif_company: yup.string().required().matches(),
   email_company: yup
     .string()
     .email('Ingresa un correo valido.')
-    .required('Correo es requerido.'),
+    .required('Campo requerido.'),
+  type_company: yup
+    .string('Ingrese tipo de empresa.')
+    .required('Campo requerido.'),
   password_company: yup
     .string()
-    .required('Contraseña es requerida.')
+    .required('Campo requerido.')
     .min(8, 'Debe contener, al menos, 8 caracteres.'),
   password_company_two: yup
     .string()
-    .required('Confime contraseña.')
+    .required('Campo requerido.')
     .min(8, 'Debe contener, al menos, 8 caracteres.')
     .oneOf([yup.ref('password_company')], 'Contraseñas no coinciden'),
 });
