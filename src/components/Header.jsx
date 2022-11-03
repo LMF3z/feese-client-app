@@ -49,21 +49,21 @@ const Header = () => {
   };
 
   return (
-    <header className="w-full height_header px-1 md:px-5 bg-primaryColor sticky top-0 text-white z-50">
-      <nav className="height_header flex justify-between items-center px-2">
-        <div className="w-1/4 height_header flex justify-start items-center space-x-5">
+    <header className='w-full height_header px-1 md:px-5 bg-primaryColor sticky top-0 text-white z-50'>
+      <nav className='height_header flex justify-between items-center px-2'>
+        <div className='w-1/4 height_header flex justify-start items-center space-x-5'>
           <MenuIcon
-            classes="cursor-pointer"
-            color="#fff"
+            classes='cursor-pointer'
+            color='#fff'
             handleClick={toggleCloseSideBar}
           />
         </div>
         {isReadyForInstall && (
-          <div className="w-full md:w-2/5 lg:w-1/4 height_header py-2 flex justify-end items-center">
+          <div className='w-full md:w-2/5 lg:w-1/4 height_header py-2 flex justify-end items-center'>
             <Button
-              label="Descargar app"
-              type="button"
-              classes="bg-red-600 w-2/4 h-full"
+              label='Descargar app'
+              type='button'
+              classes='bg-red-600 w-3/5 h-full'
               handleClick={downloadApp}
             />
           </div>
