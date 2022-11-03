@@ -2,12 +2,12 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import ReactSwitch from 'react-switch';
 import toast from 'react-hot-toast';
-import { routes } from '../../constants';
+import { colors, routes } from '../../constants';
 import ShowErrorForm from '../../components/ShowErrorForm';
 import formsSesions from '../../validations/forms.sesions.schema';
 import companiesApi from '../../API/companies/companies.api';
-import { buildSuccessResponse } from '../../utils/handleRequest';
 import Button from '../../components/Button';
 import InputWithLabel from '../../components/InputWithLabel';
 import Loading from '../../assets/Icons/Loading';
@@ -18,57 +18,68 @@ const Register = () => {
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(formsSesions.FormRegisterSchema),
   });
 
   const [isLoading, setIsLoading] = useState(false);
+  const [switchState, setSwitchState] = useState({
+    services: true,
+    products: false,
+  });
+
+  const handleChangeSwitch = ({ name, value }) => {
+    if (name === 'services') {
+      setSwitchState({
+        ...switchState,
+        services: value,
+        products: !value,
+      });
+    }
+    if (name === 'products') {
+      setSwitchState({
+        ...switchState,
+        products: value,
+        services: !value,
+      });
+    }
+  };
 
   const registerCompany = async (data) => {
     setIsLoading(true);
 
-    try {
-      const register = await companiesApi.registerCompany(data);
-      const response = buildSuccessResponse(register);
+    data.type_company = switchState.products
+      ? 'products'
+      : switchState.services;
 
-      response.success
-        ? toast.success(`${response.msg} Espere...`, {
-            duration: 5000,
-          })
-        : toast.error(response.msg, { duration: 5000 });
+    const response = await companiesApi.registerCompany(data);
 
-      response.success && reset();
-
+    if (!response.success) {
       setIsLoading(false);
-
-      response.success &&
-        setTimeout(() => {
-          navigate(routes.login);
-        }, 5000);
-    } catch (error) {
-      setIsLoading(false);
-      toast.error('Error al registrar empresa', { duration: 5000 });
+      return toast.error(response.msg);
     }
+
+    setTimeout(() => {
+      navigate(routes.login);
+    }, 5000);
   };
 
   return (
-    <div className="w-full lg:w-2/4 layout_containers min-h-screen mx-auto overflow-auto">
+    <div className='w-full lg:w-2/4 layout_containers min-h-screen mx-auto overflow-auto'>
       <h1>registrar empresa</h1>
 
       {isLoading && <Loading />}
 
       <form
         onSubmit={handleSubmit(registerCompany)}
-        className="form_container grid-rows-6 gap-5 px-5 mt-5"
+        className='form_container grid grid-flow-row auto-rows-max gap-3 px-5 mt-5'
       >
-        <div className="w-full h-full">
+        <div className='w-full h-full'>
           <InputWithLabel
-            name="name_company"
-            label="Nombre de la empresa"
-            type="text"
-            placeholder="Nombre de empresa *"
+            name='name_company'
+            label='Nombre de la empresa *'
+            type='text'
             register={register}
           />
           {errors.name_company?.message ? (
@@ -76,12 +87,11 @@ const Register = () => {
           ) : null}
         </div>
 
-        <div className="w-full h-full">
+        <div className='w-full h-full'>
           <InputWithLabel
-            name="address_company"
-            label="Dirección de la empresa"
-            type="text"
-            placeholder="Dirección *"
+            name='address_company'
+            label='Dirección de la empresa *'
+            type='text'
             register={register}
           />
           {errors?.address_company?.message && (
@@ -89,12 +99,11 @@ const Register = () => {
           )}
         </div>
 
-        <div className="w-full h-full">
+        <div className='w-full h-full'>
           <InputWithLabel
-            name="email_company"
-            label="Correo electrónico"
-            type="email"
-            placeholder="Correo electrónico *"
+            name='email_company'
+            label='Correo electrónico *'
+            type='email'
             register={register}
           />
           {errors?.email_company?.message && (
@@ -102,23 +111,53 @@ const Register = () => {
           )}
         </div>
 
-        <div className="w-full h-full flex flex-col justify-center items-start">
-          <label className="text-xs">Tipo de empresa</label>
-          <div className="flex">
-            <input type="radio" placeholder="Prestación de servicios" />
-            <input type="radio" placeholder="Venta de productos" />
+        <div className='w-full h-full flex flex-col justify-center items-start'>
+          <label className='text-xs'>Tipo de empresa *</label>
+          <div className='flex justify-evenly md:space-x-5 mt-3'>
+            <div className='flex justify-center items-center space-x-1'>
+              <ReactSwitch
+                uncheckedIcon={false}
+                checkedIcon={false}
+                onColor={colors.buttonSuccessColor}
+                id='services'
+                checked={switchState.services}
+                onChange={(e) =>
+                  handleChangeSwitch({ name: 'services', value: e })
+                }
+              />
+              <label htmlFor='services' title='Prestación de servicios'>
+                De servicios
+              </label>
+            </div>
+            <div className='pl-3 flex justify-end items-center space-x-1'>
+              <ReactSwitch
+                uncheckedIcon={false}
+                checkedIcon={false}
+                onColor={colors.buttonSuccessColor}
+                id='products'
+                checked={switchState.products}
+                onChange={(e) =>
+                  handleChangeSwitch({ name: 'products', value: e })
+                }
+              />
+              <label htmlFor='products' title='Venta de productos'>
+                De productos
+              </label>
+            </div>
           </div>
+          <p className='text-buttonSuccessColor my-2'>
+            ¡Atención! No podrás cambiar esta opción luego
+          </p>
           {errors?.email_company?.message && (
             <ShowErrorForm label={errors?.email_company?.message} />
           )}
         </div>
 
-        <div className="w-full h-full">
+        <div className='w-full h-full'>
           <InputWithLabel
-            name="password_company"
-            label="Contraseña"
-            type="password"
-            placeholder="Contraseña *"
+            name='password_company'
+            label='Contraseña *'
+            type='password'
             register={register}
           />
           {errors?.password_company?.message && (
@@ -126,12 +165,11 @@ const Register = () => {
           )}
         </div>
 
-        <div className="w-full h-full">
+        <div className='w-full h-full'>
           <InputWithLabel
-            name="password_company_two"
-            label="Confirmar contraseña"
-            type="password"
-            placeholder="Confirmar contraseña *"
+            name='password_company_two'
+            label='Confirmar contraseña *'
+            type='password'
             register={register}
           />
           {errors?.password_company_two?.message && (
@@ -139,15 +177,13 @@ const Register = () => {
           )}
         </div>
 
-        <div className="w-full h-full">
-          <Button label="Registrar" classes="lg:p-2" />
+        <div className='w-full h-full'>
+          <Button label='Registrar' classes='lg:p-2' />
         </div>
       </form>
 
-      <div className="w-full mt-2 text-lg text-white">
-        <span>
-          <Link to={routes.login}>¿Ya tienes una cuenta? Inicia sesión</Link>
-        </span>
+      <div className='w-full mt-2 text-lg text-white'>
+        <Link to={routes.login}>¿Ya tienes una cuenta? Inicia sesión</Link>
       </div>
     </div>
   );

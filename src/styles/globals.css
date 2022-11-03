@@ -2,9 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
+/* @font-face {
   font-family: Elephant;
   src: url('../assets/fonts/Elephant.ttf');
+} */
+
+@font-face {
+  font-family: FuturaLightBt;
+  src: url('../assets/fonts/FuturaLightBt.ttf');
 }
 
 * {
@@ -16,13 +21,13 @@
   body {
     padding: 0;
     margin: 0;
-    font-family: Elephant, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    font-family: FuturaLightBt, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
       Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
     @apply bg-primaryColor text-textWhite tracking-wide;
   }
 
   h1 {
-    @apply text-3xl text-white capitalize;
+    @apply text-2xl text-white capitalize;
   }
   
   /* span {
@@ -30,11 +35,11 @@
   } */
   
   label {
-    @apply text-white;
+    @apply text-textWhite;
   }
-  
+
   option {
-    @apply bg-custom_bg hover:bg-custom_bg;
+    @apply bg-secondaryColor text-textWhite;
   }
 }
 
@@ -133,18 +138,23 @@
   transition: opacity .3s;
  } */
 
+
+ /* border-b-2 border-borderBaseColor */
  .input {
-  @apply outline-none border-b-2 border-borderBaseColor bg-primaryColor w-full h-10 pr-5 text-xl text-white;
+  @apply outline-none bg-secondaryColor w-full h-10 p-5 rounded-full text-xl text-textWhite;
  }
 
- .input::placeholder { @apply text-placeholderColor font-bold; } 
+ .select{
+  @apply w-full h-10 px-5 bg-secondaryColor outline-none rounded-full text-xl text-white;
+ }
+
+ .input::placeholder { @apply text-gray-500; } 
 
  /* * buttons */
  /* From uiverse.io by @adamgiebl */
 .button {
   font-family: inherit;
   font-size: 20px;
-  /* background: royalblue; */
   @apply bg-theme_primary_color;
   color: white;
   padding: 0.7em 1em;
@@ -213,7 +223,7 @@
 .ping {
   --uib-size: 50px;
   --uib-speed: 1s;
-  --uib-color: #3950cf;
+  --uib-color: #34c658;
   position: relative;
   height: var(--uib-size);
   width: var(--uib-size);

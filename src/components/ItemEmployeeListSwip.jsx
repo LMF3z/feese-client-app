@@ -6,8 +6,8 @@ const ItemEmployeeListSwip = ({ employeeItem }) => {
   let navigate = useNavigate();
 
   return (
-    <article className="w-full bg-SelectColor flex flex-col justify-center items-start space-y-5 p-5 drop-shadow-2xl">
-      <section className="text-base text-smoothTextColor capitalize">
+    <article className='w-full bg-secondaryColor flex flex-col justify-center items-start space-y-5 p-5 drop-shadow-2xl'>
+      <section className='text-base capitalize'>
         <div>
           <label>Nombre:</label> <span>{employeeItem.name_employee}</span>
         </div>
@@ -31,7 +31,7 @@ const ItemEmployeeListSwip = ({ employeeItem }) => {
               : 'Pago porcentaje'}
           </span>
         </div>
-        <div className="">
+        <div className=''>
           <label>Pago:</label>{' '}
           <span>
             {employeeItem.payment_type === 'fixed_payment' ? '$' : '%'}
@@ -40,9 +40,9 @@ const ItemEmployeeListSwip = ({ employeeItem }) => {
         </div>
       </section>
       <Button
-        label="Ver pagos"
-        classes="h-8 w-2/5 md:w-1/4"
-        type="button"
+        label='Ver pagos'
+        classes='h-8 w-3/5 md:w-1/4'
+        type='button'
         handleClick={() =>
           navigate(`${routes.paymentsWorkers}/${employeeItem.id}`, {
             replace: true,

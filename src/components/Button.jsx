@@ -11,7 +11,7 @@ const Button = (props) => {
       disabled={disabled}
       type={type}
       onClick={handleClick}
-      className={`w-full min-h-8 bg-buttonSuccessColor text-black text-xl rounded-full hover:bg-green-600 flex justify-center items-center p-2 z-0 ${classes}`}
+      className={`w-full min-h-8 bg-buttonSuccessColor text-black font-bold tracking-widest text-xl rounded-full hover:bg-green-600 flex justify-center items-center p-2 z-0 ${classes}`}
     >
       {label}
     </button>

@@ -8,7 +8,7 @@ import {
 } from '@sandstreamdev/react-swipeable-list';
 import ReactPaginate from 'react-paginate';
 
-import { routes } from '../../constants';
+import { locale, routes } from '../../constants';
 import {
   annularOrder,
   getOrdersByRangeDates,
@@ -101,42 +101,42 @@ const Orders = () => {
   if (alertModal) {
     return (
       <ContainerModalContext
-        classes="md:w-1/2 lg:w-1/3 bg-custom_bg"
+        classes='md:w-1/2 lg:w-1/3 bg-secondaryColor'
         onCloseModal={() => setAlertModal(false)}
       >
         <ModalAuthorization
           handleAccept={annularOrderById}
           handleCancel={() => setAlertModal(false)}
-          message="¿Seguro que desea anular la orden?"
+          message='¿Seguro que desea anular la orden?'
         />
       </ContainerModalContext>
     );
   }
 
   return (
-    <article className="container_section">
+    <article className='container_section'>
       <h1>Historial de Ordenes</h1>
 
-      <section className="w-full flex flex-col justify-start items-start space-y-2 mt-2 p-2 border-2 border-borderBaseColor rounded-lg">
+      <section className='w-full flex flex-col justify-start items-start space-y-2 mt-2 p-2 border-2 border-borderBaseColor rounded-lg'>
         {isLoading ? (
           <Loading />
         ) : (
-          <div className="text-sm text-smoothTextColor">
+          <div className='text-sm text-smoothTextColor'>
             <p>
               Total generado:{' '}
-              <span className="text-lg text-white">
+              <span className='text-lg text-white'>
                 ${ordersList?.totalPaymentsOrders}
               </span>
             </p>
             <p>
               Total pagos:{' '}
-              <span className="text-lg text-white">
+              <span className='text-lg text-white'>
                 ${ordersList?.totalPayments}
               </span>
             </p>
             <p>
               Total gastos:{' '}
-              <span className="text-lg text-white">
+              <span className='text-lg text-white'>
                 ${ordersList?.expendituresTotal}
               </span>
             </p>
@@ -144,53 +144,49 @@ const Orders = () => {
         )}
       </section>
 
-      <div className="w-full mt-5 min-h-20 flex flex-col justify-between items-center space-y-4 md:space-y-0 md:grid md:grid-cols-2 md:grid-rows-1 md:gap-3">
-        <div className="w-full">
-          <label className="">Fecha inicial</label>
+      <div className='w-full mt-5 min-h-20 flex flex-col justify-between items-center space-y-4 md:space-y-0 md:grid md:grid-cols-2 md:grid-rows-1 md:gap-3'>
+        <div className='w-full'>
+          <label className=''>Fecha inicial</label>
           <DatePicker
-            className="input"
+            className='input'
             selected={initialDate}
             onChange={(date) => setInitialDate(date)}
-            locale="es"
+            locale={locale}
             maxDate={limitDate}
             showTimeSelect={false}
-            dateFormat="dd-MM-yyyy"
+            dateFormat='dd-MM-yyyy'
           />
         </div>
-        <div className="w-full">
-          <label className="">Fecha final</label>
+        <div className='w-full'>
+          <label className=''>Fecha final</label>
           <DatePicker
-            className="input"
+            className='input'
             selected={finishDate}
             onChange={(date) => setFinishDate(date)}
-            locale="es"
+            locale={locale}
             maxDate={limitDate}
             showTimeSelect={false}
-            dateFormat="dd-MM-yyyy"
+            dateFormat='dd-MM-yyyy'
           />
         </div>
       </div>
 
       <Button
-        type="button"
-        label="Buscar"
-        classes="my-3"
+        type='button'
+        label='Buscar'
+        classes='my-3'
         handleClick={getOrdersByDates}
       />
-
-      {/* <div className="w-full h-10 mt-3 flex justify-end items-center">
-          
-        </div> */}
 
       {isLoading && <Loading />}
 
       {ordersList?.rows?.length === 0 ? (
-        <div className="w-full mt-5 p-10 flex justify-center items-center">
+        <div className='w-full mt-5 p-10 flex justify-center items-center'>
           <label>Sin resultados.</label>
         </div>
       ) : (
         <>
-          <div className="w-full max-h-60vh drop-shadow-2xl overflow-x-visible sm:overflow-x-hidden overflow-y-scroll z-0">
+          <div className='w-full max-h-60vh drop-shadow-2xl overflow-x-visible sm:overflow-x-hidden overflow-y-scroll z-0'>
             <SwipeableList>
               {ordersList?.rows?.map((order) => (
                 <SwipeableListItem
@@ -198,11 +194,11 @@ const Orders = () => {
                   blockSwipe={order.state_null}
                   swipeLeft={{
                     content: (
-                      <div className="w-full h-full pr-5 bg-white-600 flex justify-end items-center">
+                      <div className='w-full h-full pr-5 bg-white-600 flex justify-end items-center'>
                         <img
                           src={images.forbidden}
-                          alt="saving-icon"
-                          className="w-8 h-8"
+                          alt='saving-icon'
+                          className='w-8 h-8'
                         />
                       </div>
                     ),
@@ -213,8 +209,8 @@ const Orders = () => {
                   }}
                   swipeRight={{
                     content: (
-                      <div className="w-full h-full pl-5 bg-blue flex justify-start items-center">
-                        <SeeIcon color="#fff" classes="lg:w-8 lg:h-8" />
+                      <div className='w-full h-full pl-5 bg-blue flex justify-start items-center'>
+                        <SeeIcon color='#fff' classes='lg:w-8 lg:h-8' />
                       </div>
                     ),
                     action: () => SeeOrderDetails(order),
@@ -234,7 +230,7 @@ const Orders = () => {
             pageRangeDisplayed={5}
             renderOnZeroPageCount={null}
             onPageChange={({ selected }) => handleChangePage(selected)}
-            containerClassName="w-full mt-3 flex justify-evenly items-center"
+            containerClassName='w-full mt-3 flex justify-evenly items-center'
             previousClassName={'p-2'}
             nextClassName={''}
             pageClassName={''}

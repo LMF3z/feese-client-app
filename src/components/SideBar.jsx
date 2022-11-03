@@ -35,7 +35,6 @@ const SideBar = () => {
   const matchPaymentsWorkersHistories = useMatch(
     routes.paymentsWorkersHistories
   );
-  const matchBranches = useMatch(routes.branches);
   const matchOrders = useMatch(routes.orders);
 
   const side = useRef(null);
@@ -59,200 +58,212 @@ const SideBar = () => {
   };
 
   return (
-    <div className="container_menu z-50" onClick={toggleSidebar} id="side">
+    <div className='container_menu z-50' onClick={toggleSidebar} id='side'>
       <nav
         ref={side}
-        className={`w-60 min-h-screen p-2 flex flex-col justify-start items-center space-y-1 bg-secondaryColor text-text_base_color nav_inactive`}
+        className={`w-60 min-h-screen p-2 flex flex-col justify-start items-center space-y-1 bg-secondaryColor nav_inactive`}
       >
         {isAuth?.token && (
           <>
             {isAuth.isCompany && (
               <>
                 <ItemSideBar
-                  label="Perfil"
+                  label='Perfil'
                   icon={
-                    <ProfileUserIcon classes="w-5 h-5" color={colors.white} />
+                    <ProfileUserIcon
+                      classes='w-5 h-5'
+                      color={
+                        matchProfileCompany?.pathname === routes.profileCompany
+                          ? colors.white
+                          : colors.gray_base
+                      }
+                    />
+                  }
+                  isPathMatch={
+                    matchProfileCompany?.pathname === routes.profileCompany
                   }
                   handleClick={(e) => {
                     toggleSidebar(e, true);
                     navigate(routes.profileCompany);
                   }}
-                  classes={
-                    matchProfileCompany?.pathname === routes.profileCompany
-                      ? 'bg-SelectColor text-white'
-                      : ''
-                  }
                 />
 
                 <ItemSideBar
-                  label="Suscripción"
+                  label='Suscripción'
                   icon={
-                    <ProfileUserIcon classes="w-5 h-5" color={colors.white} />
+                    <ProfileUserIcon
+                      classes='w-5 h-5'
+                      color={
+                        matchSubscriptionCompany?.pathname ===
+                        routes.subscriptionCompany
+                          ? colors.white
+                          : colors.gray_base
+                      }
+                    />
+                  }
+                  isPathMatch={
+                    matchSubscriptionCompany?.pathname ===
+                    routes.subscriptionCompany
                   }
                   handleClick={(e) => {
                     toggleSidebar(e, true);
                     navigate(routes.subscriptionCompany);
                   }}
-                  classes={
-                    matchSubscriptionCompany?.pathname ===
-                    routes.subscriptionCompany
-                      ? 'bg-SelectColor text-white'
-                      : ''
-                  }
                 />
 
                 <ItemSideBar
-                  label="Usuarios"
+                  label='Usuarios'
                   icon={
-                    <UsersCompanyIcon classes="w-5 h-5" color={colors.white} />
+                    <UsersCompanyIcon
+                      classes='w-5 h-5'
+                      color={
+                        matchUsersCompany?.pathname === routes.usersCompany
+                          ? colors.white
+                          : colors.gray_base
+                      }
+                    />
+                  }
+                  isPathMatch={
+                    matchUsersCompany?.pathname === routes.usersCompany
                   }
                   handleClick={(e) => {
                     toggleSidebar(e, true);
                     navigate(routes.usersCompany);
                   }}
-                  classes={
-                    matchUsersCompany?.pathname === routes.usersCompany
-                      ? 'bg-SelectColor text-white'
-                      : ''
-                  }
                 />
-
-                {/* <ItemSideBar
-                  label="Sucursales"
-                  icon={
-                    <BranchesIcons
-                      classes="w-5 h-5"
-                      color={colors.white}
-                    />
-                  }
-                  handleClick={(e) => {
-                    toggleSidebar(e, true);
-                    navigate(routes.branches);
-                  }}
-                  classes={
-                    matchBranches?.pathname === routes.branches
-                      ? 'bg-SelectColor text-white'
-                      : ''
-                  }
-                /> */}
               </>
             )}
 
             <ItemSideBar
-              label="Asignaciones"
-              icon={<ApproveIcon classes="w-5 h-5" color={colors.white} />}
+              label='Asignaciones'
+              icon={
+                <ApproveIcon
+                  classes='w-5 h-5'
+                  color={
+                    matchAssignments?.pathname === routes.app
+                      ? colors.white
+                      : colors.gray_base
+                  }
+                />
+              }
+              isPathMatch={matchAssignments?.pathname === routes.app}
               handleClick={(e) => {
                 toggleSidebar(e, true);
                 navigate(routes.app);
               }}
-              classes={
-                matchAssignments?.pathname === routes.app
-                  ? 'bg-SelectColor text-white'
-                  : ''
-              }
             />
 
             {(isAuth?.role === roles.admin || isAuth?.isCompany) && (
               <>
                 <ItemSideBar
-                  label="Ordenes"
-                  icon={<OrdersIcon classes="w-5 h-5" color={colors.white} />}
+                  label='Ordenes'
+                  icon={
+                    <OrdersIcon
+                      classes='w-5 h-5'
+                      color={
+                        matchOrders?.pathname === routes.orders
+                          ? colors.white
+                          : colors.gray_base
+                      }
+                    />
+                  }
+                  isPathMatch={matchOrders?.pathname === routes.orders}
                   handleClick={(e) => {
                     toggleSidebar(e, true);
                     navigate(routes.orders);
                   }}
-                  classes={
-                    matchOrders?.pathname === routes.orders
-                      ? 'bg-SelectColor text-white'
-                      : ''
-                  }
                 />
 
                 <ItemSideBar
-                  label="Servicios"
-                  icon={<ServicesIcon classes="w-5 h-5" color={colors.white} />}
+                  label='Servicios'
+                  icon={
+                    <ServicesIcon
+                      classes='w-5 h-5'
+                      color={
+                        matchServices?.pathname === routes.services
+                          ? colors.white
+                          : colors.gray_base
+                      }
+                    />
+                  }
+                  isPathMatch={matchServices?.pathname === routes.services}
                   handleClick={(e) => {
                     toggleSidebar(e, true);
                     navigate(routes.services);
                   }}
-                  classes={
-                    matchServices?.pathname === routes.services
-                      ? 'bg-SelectColor text-white'
-                      : ''
-                  }
                 />
 
                 <ItemSideBar
-                  label="Empleados"
+                  label='Empleados'
                   icon={
-                    <EmployeesIcon classes="w-5 h-5" color={colors.white} />
+                    <EmployeesIcon
+                      classes='w-5 h-5'
+                      color={
+                        matchEmployees?.pathname === routes.employees
+                          ? colors.white
+                          : colors.gray_base
+                      }
+                    />
                   }
+                  isPathMatch={matchEmployees?.pathname === routes.employees}
                   handleClick={(e) => {
                     toggleSidebar(e, true);
                     navigate(routes.employees);
                   }}
-                  classes={
-                    matchEmployees?.pathname === routes.employees
-                      ? 'bg-SelectColor text-white'
-                      : ''
-                  }
                 />
 
                 <ItemSideBar
-                  label="Historial de Pagos"
-                  icon={<PaymentsIcon classes="w-5 h-5" color={colors.white} />}
+                  label='Historial de Pagos'
+                  icon={
+                    <PaymentsIcon
+                      classes='w-5 h-5'
+                      color={
+                        matchPaymentsWorkersHistories?.pathname ===
+                        routes.paymentsWorkersHistories
+                          ? colors.white
+                          : colors.gray_base
+                      }
+                    />
+                  }
+                  isPathMatch={
+                    matchPaymentsWorkersHistories?.pathname ===
+                    routes.paymentsWorkersHistories
+                  }
                   handleClick={(e) => {
                     toggleSidebar(e, true);
                     navigate(routes.paymentsWorkersHistories);
                   }}
-                  classes={
-                    matchPaymentsWorkersHistories?.pathname ===
-                    routes.paymentsWorkersHistories
-                      ? 'bg-SelectColor text-white'
-                      : ''
-                  }
                 />
               </>
             )}
 
             <ItemSideBar
-              label="Gastos"
+              label='Gastos'
               icon={
-                <ExpenditureBagIcon classes="w-5 h-5" color={colors.white} />
+                <ExpenditureBagIcon
+                  classes='w-5 h-5'
+                  color={
+                    matchExpenditures?.pathname === routes.expenditures
+                      ? colors.white
+                      : colors.gray_base
+                  }
+                />
               }
+              isPathMatch={matchExpenditures?.pathname === routes.expenditures}
               handleClick={(e) => {
                 toggleSidebar(e, true);
                 navigate(routes.expenditures);
               }}
               classes={
                 matchExpenditures?.pathname === routes.expenditures
-                  ? 'bg-SelectColor text-white'
+                  ? 'bg-buttonSuccessColor text-black'
                   : ''
               }
             />
 
-            {/* <ItemSideBar
-              label="Reportes"
-              icon={
-                <ReportsIcon
-                  classes="w-5 h-5"
-                  color={colors.white}
-                />
-              }
-              handleClick={(e) => {
-                toggleSidebar(e, true);
-                navigate(routes.reports);
-              }}
-              classes={
-                matchReports?.pathname === routes.reports
-                  ? 'bg-SelectColor text-white'
-                  : ''
-              }
-            /> */}
-
             <ItemSideBar
-              label="Salir"
-              icon={<LogOutIcon classes="w-5 h-5" color={colors.white} />}
+              label='Salir'
+              icon={<LogOutIcon classes='w-5 h-5' color={colors.gray_base} />}
               handleClick={(e) => {
                 toggleSidebar(e, true);
                 handleLogged(false);
@@ -264,28 +275,39 @@ const SideBar = () => {
         {!isAuth && (
           <>
             <ItemSideBar
-              label="Ingresar"
-              icon={<LogInIcon color={colors.white} />}
+              label='Ingresar'
+              icon={
+                <LogInIcon
+                  color={
+                    matchLogin?.pathname === routes.login
+                      ? colors.white
+                      : colors.gray_base
+                  }
+                />
+              }
+              isPathMatch={matchLogin?.pathname === routes.login}
               handleClick={(e) => {
                 navigate(routes.login);
                 toggleSidebar(e, true);
               }}
-              classes={
-                matchLogin?.pathname === routes.login ? 'bg-SelectColor' : ''
-              }
             />
             <ItemSideBar
-              label="Registrar"
-              icon={<SignInIcon classes="w-5 h-5" color={colors.white} />}
+              label='Registrar'
+              icon={
+                <SignInIcon
+                  classes='w-5 h-5'
+                  color={
+                    matchRegister?.pathname === routes.register
+                      ? colors.white
+                      : colors.gray_base
+                  }
+                />
+              }
+              isPathMatch={matchRegister?.pathname === routes.register}
               handleClick={(e) => {
                 navigate(routes.register);
                 toggleSidebar(e, true);
               }}
-              classes={
-                matchRegister?.pathname === routes.register
-                  ? 'bg-SelectColor'
-                  : ''
-              }
             />
           </>
         )}

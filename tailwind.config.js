@@ -7,14 +7,14 @@ module.exports = {
       },
       colors: {
         // final Colors
-        primaryColor: '#051028',
-        secondaryColor: '#0f1e3f',
-        grayItemList: '#3e3e3f',
-        buttonSuccessColor: '#1ada5c',
+        primaryColor: '#1d1c1f',
+        secondaryColor: '#292928',
+        grayItemList: '#343537',
+        buttonSuccessColor: '#34c658',
         buttonErrorColor: '#db1b2a',
         placeholderColor: '#222f58',
         borderBaseColor: '#2f3552',
-        textWhite: '#f7f7f6',
+        textWhite: '#f0eef2',
         SelectColor: '#0e162c',
         smoothTextColor: '#b5bcc9',
 

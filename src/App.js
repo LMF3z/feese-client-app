@@ -6,9 +6,9 @@ import Home from './pages/public/Home';
 import Register from './pages/public/Register';
 import Login from './pages/public/Login';
 import PublicComponents from './components/PublicComponents';
-import PrivateComponents from './components/PrivateComponents.jsx';
+import PrivateComponents from './components/PrivateComponents';
 // private
-import MainApp from './pages/private/MainApp';
+import MainApp from './pages/private/MainAppScreen/MainApp';
 import Employees from './pages/private/Employees';
 import Services from './pages/private/Services';
 import NotFoundPage from './pages/NotFoundPage';
@@ -19,7 +19,7 @@ import Expenditure from './pages/private/Expenditure';
 import PaymentsWorkers from './pages/private/PaymentsWorkers';
 import PaymentsWorkersHistories from './pages/private/PaymentsWorkersHistories';
 import DetailsEmployeePayment from './pages/private/DetailsEmployeePayment';
-import UsersCompany from './pages/private/UsersCompany';
+import UsersCompany from './pages/private/UsersCompanyScreen/UsersCompany';
 import SubscriptionCompany from './pages/private/SubscriptionCompany';
 
 const App = () => {
@@ -61,7 +61,7 @@ const App = () => {
             />
             <Route path={routes.expenditures} element={<Expenditure />} />
           </Route>
-          <Route path="*" element={<NotFoundPage />} />
+          <Route path='*' element={<NotFoundPage />} />
         </Routes>
       </Layout>
     </BrowserRouter>

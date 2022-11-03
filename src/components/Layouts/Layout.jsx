@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import Header from '../Header';
@@ -12,8 +11,8 @@ const Layout = ({ children }) => {
       <main>
         <Header />
         <SideBar />
-        <div className="w-full min-h-screen md:px-10 z-0">{children}</div>
-        <Toaster />
+        <div className='w-full min-h-screen md:px-10 z-0'>{children}</div>
+        <Toaster position='top-right' />
         <Outlet />
       </main>
       <Footer />

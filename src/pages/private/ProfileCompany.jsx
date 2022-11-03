@@ -40,27 +40,19 @@ const ProfileCompany = () => {
     try {
       const response = await getDataCompanyByID(isAuth.id_company);
       const data = buildSuccessResponse(response);
+
       if (data.success === false) {
         return toast.error(data.msg);
       }
 
-      setLogoCompany(data.data.logo_company);
-
-      setValue('id', data.data.id);
-      setValue('name_company', data.data.name_company);
-      setValue('address_company', data.data.address_company);
-      setValue(
-        'type_document_company',
-        data.data.type_document_company
-          ? data.data.type_document_company
-          : 'none'
-      );
-      setValue(
-        'document_company',
-        data.data.document_company ? data.data.document_company : ''
-      );
-      setValue('email_company', data.data.email_company);
-      setValue('phone', data.data.phone ? data.data.phone : '');
+      setLogoCompany(data?.data?.logo_company);
+      setValue('id', data?.data?.id);
+      setValue('name_company', data?.data?.name_company);
+      setValue('address_company', data?.data?.address_company);
+      setValue('type_document_company', data?.data?.type_document_company);
+      setValue('document_company', data?.data?.document_company);
+      setValue('email_company', data?.data?.email_company);
+      setValue('phone', data?.data?.phone);
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
@@ -95,41 +87,39 @@ const ProfileCompany = () => {
     }
   };
 
-  if (isLoading) {
-    return <Loading />;
-  }
-
   return (
-    <div className="container_section">
+    <div className='container_section'>
       <h1>Perfil de la empresa</h1>
 
-      <SelectImage handleImage={getImageProfile} image={logoCompany} />
+      {isLoading && <Loading />}
+      {!isLoading && (
+        <SelectImage handleImage={getImageProfile} image={logoCompany} />
+      )}
 
       <form
         onSubmit={handleSubmit(updateDataCompany)}
-        className="form_container mt-10"
+        className='form_container'
+        autoComplete='off'
       >
-        <input type="hidden" {...register('id')} />
+        <input type='hidden' {...register('id')} />
 
-        <div className="container_square_form md:flex md:justify-evenly md:items-center md:space-x-3">
-          <div className="w-full md:w-1/2">
+        <div className='container_square_form md:flex md:justify-evenly md:items-center md:space-x-3'>
+          <div className='w-full md:w-1/2'>
             <InputWithLabel
-              label="Nombre"
-              type="text"
-              placeholder="Empresa"
-              name="name_company"
+              label='Nombre'
+              type='text'
+              name='name_company'
               register={register}
             />
             {errors?.name_company?.message && (
               <ShowErrorForm label={errors?.name_company?.message} />
             )}
           </div>
-          <div className="w-full md:w-1/2 mt-3 lg:mt-0">
+          <div className='w-full md:w-1/2'>
             <InputWithLabel
-              label="Dirección"
-              type="text"
-              placeholder="Dirección"
-              name="address_company"
+              label='Dirección'
+              type='text'
+              name='address_company'
               register={register}
             />
             {errors?.address_company?.message && (
@@ -138,29 +128,28 @@ const ProfileCompany = () => {
           </div>
         </div>
 
-        <div className="container_square_form md:flex md:justify-evenly md:items-center md:space-x-3 mt-3">
-          <div className="w-full md:w-1/2">
+        <div className='container_square_form md:flex md:justify-evenly md:items-center md:space-x-3 mt-3'>
+          <div className='w-full md:w-1/2'>
             <SelectWithLabel
-              label="Tipo de documento"
-              name="type_document_company"
+              label='Tipo de documento'
+              name='type_document_company'
               register={register}
             >
-              <option value="none">Tipo de documento</option>
-              <option value="j">J</option>
-              <option value="v">V</option>
-              <option value="e">E</option>
+              <option value='none'>Tipo de documento</option>
+              <option value='J'>J</option>
+              <option value='V'>V</option>
+              <option value='E'>E</option>
             </SelectWithLabel>
             {errors?.type_document_company?.message && (
               <ShowErrorForm label={errors?.type_document_company?.message} />
             )}
           </div>
 
-          <div className="w-full md:w-1/2 mt-3 md:mt-0">
+          <div className='w-full md:w-1/2 mt-3 md:mt-0'>
             <InputWithLabel
-              label="Documento"
-              type="text"
-              placeholder="Documento"
-              name="document_company"
+              label='Documento'
+              type='text'
+              name='document_company'
               register={register}
             />
             {errors?.document_company?.message && (
@@ -169,25 +158,23 @@ const ProfileCompany = () => {
           </div>
         </div>
 
-        <div className="container_square_form md:flex md:justify-evenly md:items-center md:space-x-3 mt-3">
-          <div className="w-full md:w-1/2">
+        <div className='container_square_form md:flex md:justify-evenly md:items-center md:space-x-3 mt-3'>
+          <div className='w-full md:w-1/2'>
             <InputWithLabel
-              label="Correo electrónico"
-              type="email"
-              placeholder="Correo electrónico"
-              name="email_company"
+              label='Correo electrónico'
+              type='email'
+              name='email_company'
               register={register}
             />
             {errors?.email_company?.message && (
               <ShowErrorForm label={errors?.email_company?.message} />
             )}
           </div>
-          <div className="w-full md:w-1/2 mt-3 md:mt-0">
+          <div className='w-full md:w-1/2 mt-3 md:mt-0'>
             <InputWithLabel
-              label="Teléfono"
-              type="text"
-              placeholder="Teléfono"
-              name="phone"
+              label='Teléfono'
+              type='text'
+              name='phone'
               register={register}
             />
             {errors?.phone?.message && (
@@ -196,7 +183,7 @@ const ProfileCompany = () => {
           </div>
         </div>
 
-        <Button label="Actualizar" classes="my-3" />
+        <Button label='Actualizar' classes='my-3' />
       </form>
     </div>
   );

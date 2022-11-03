@@ -21,20 +21,18 @@ const SelectImage = ({ handleImage, image }) => {
     handleImage(file);
   };
 
-  // <div className="w-3/5 h-full mx-auto relative border border-red-600"></div>
-
   return (
-    <div className="w-full min-h-16 mt-3 relative">
+    <div className='w-full min-h-16 my-10 relative'>
       <img
         src={typeof image === 'string' ? image : imageSelect}
-        alt=""
-        className="w-36 h-32 mx-auto circular_images"
+        alt='company'
+        className='w-32 h-32 rounded-full mx-auto'
       />
       <input
-        type="file"
-        name="images"
-        accept="image/png, image/jpeg, image/jpg"
-        className="w-full h-full absolute top-0 left-0 opacity-0"
+        type='file'
+        name='images'
+        accept='image/png, image/jpeg, image/jpg'
+        className='w-full h-full absolute top-0 left-0 opacity-0'
         onChange={handleSelectedImage}
       />
     </div>

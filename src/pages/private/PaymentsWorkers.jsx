@@ -41,19 +41,7 @@ const PaymentsWorkers = () => {
     resolver: yupResolver(FormEmployeePaymentSchema.FormEmployeePaymentSchema),
   });
 
-  const {
-    numPages,
-    actualPage,
-    actualOffset,
-    setPages,
-    handleNextPage,
-    handlePreviewsPage,
-
-    SetNumPages,
-    pageCount,
-    handleChangePage,
-    offset,
-  } = usePaginate();
+  const { SetNumPages, pageCount, handleChangePage, offset } = usePaginate();
 
   const { buildSuccessResponse } = useAuth();
 
@@ -159,13 +147,13 @@ const PaymentsWorkers = () => {
   };
 
   return (
-    <div className="container_section">
+    <div className='container_section'>
       <h1>Detalles de pagos</h1>
 
-      <div className="w-full flex justify-start items-center space-x-5 mt-6 text-white">
+      <div className='w-full flex justify-start items-center space-x-5 mt-5 mb-1 text-white'>
         <label>Pago completo</label>
         <Switch
-          className="react-switch"
+          className='react-switch'
           onChange={handleTypePayment}
           checked={isCompletePayment}
           offColor={colors.placeholderColor}
@@ -176,17 +164,17 @@ const PaymentsWorkers = () => {
       </div>
 
       <form
-        className="form_container min-h-10vh"
+        className='w-full min-h-10vh'
         onSubmit={handleSubmit(sendNewPayment)}
       >
-        <div className="container_square_form">
-          <div className="w-full md:w-1/2">
+        <section className='md:flex md:space-x-3'>
+          <div className='w-full md:w-1/2'>
             <input
-              type="number"
-              min="0.01"
-              step="0.01"
-              className="input w-full text-base"
-              placeholder="Cantidad a pagar"
+              type='number'
+              min='0.01'
+              step='0.01'
+              className='input w-full text-base'
+              placeholder='Cantidad a pagar'
               disabled={isCompletePayment}
               {...register('payment_amount')}
             />
@@ -194,29 +182,28 @@ const PaymentsWorkers = () => {
               <ShowErrorForm label={errors?.payment_amount?.message} />
             )}
           </div>
-        </div>
-        <div className="container_square_form">
-          <div className="w-full md:w-1/2">
+          <div className='w-full md:w-1/2 mt-2 md:mt-0'>
             <select
-              className="input w-full"
-              defaultValue={'complete'}
+              className='select'
               disabled={isCompletePayment}
               {...register('payment_type')}
             >
-              <option value="complete">Pago completo</option>
-              <option value="advance">Adelanto</option>
+              <option value='complete' selected>
+                Pago completo
+              </option>
+              <option value='advance'>Adelanto</option>
             </select>
             {errors?.payment_type?.message && (
               <ShowErrorForm label={errors?.payment_type?.message} />
             )}
           </div>
-        </div>
-        <Button label="Procesar" classes="h-8 my-3" />
+        </section>
+        <Button label='Procesar' classes='h-8' />
       </form>
 
       {Object.values(employeeData).length > 0 && (
-        <div className="w-full flex flex-col justify-start items-start space-y-2 mt-5 p-2 border-2 border-borderBaseColor rounded-lg">
-          <section className="text-base text-smoothTextColor">
+        <div className='w-full flex flex-col justify-start items-start space-y-2 mt-5 p-2 border-2 border-borderBaseColor rounded-lg'>
+          <section className='text-base text-smoothTextColor'>
             <p>
               Nombre: <label>{employeeData.name_employee}</label>
             </p>
@@ -303,33 +290,33 @@ const PaymentsWorkers = () => {
 
       {employeePaymentsHistory.length > 0 ? (
         <>
-          <table className="custom_table">
-            <thead className="custom_thead">
-              <tr className="custom_tr_thead">
+          <table className='custom_table'>
+            <thead className='custom_thead'>
+              <tr className='custom_tr_thead'>
                 {headers.map((header, index) => (
-                  <th key={index} className="custom_th_thead">
-                    <label className="text-red-600">{header}</label>
+                  <th key={index} className='custom_th_thead'>
+                    <label className='text-red-600'>{header}</label>
                   </th>
                 ))}
               </tr>
             </thead>
-            <tbody className="custom_tbody">
+            <tbody className='custom_tbody'>
               {employeePaymentsHistory.map((payment) => (
-                <tr key={payment.id} className="custom_tr_tbody">
-                  <td className="custom_td_tbody">
+                <tr key={payment.id} className='custom_tr_tbody'>
+                  <td className='custom_td_tbody'>
                     ${payment.payment_amount.toFixed(2)}
                   </td>
-                  <td className="custom_td_tbody">
+                  <td className='custom_td_tbody'>
                     {payment.payment_type === 'complete'
                       ? 'Pago completo'
                       : 'Adelanto'}
                   </td>
-                  <td className="custom_td_tbody">{payment.createdAt}</td>
-                  <td className="custom_td_tbody_button">
+                  <td className='custom_td_tbody'>{payment.createdAt}</td>
+                  <td className='custom_td_tbody_button'>
                     <Button
-                      type="button"
-                      label="Ver"
-                      classes="w-2/5 md:w-1/2 lg:w-[90%] h-7 md:h-8 mx-auto md:my-0"
+                      type='button'
+                      label='Ver'
+                      classes='w-2/5 md:w-1/2 lg:w-[90%] h-7 md:h-8 mx-auto md:my-0'
                       handleClick={() =>
                         navigate(`${routes.detailsPaymentWorker}/${payment.id}`)
                       }
@@ -348,7 +335,7 @@ const PaymentsWorkers = () => {
             pageRangeDisplayed={5}
             renderOnZeroPageCount={null}
             onPageChange={({ selected }) => handleChangePage(selected)}
-            containerClassName="w-full mt-3 flex justify-evenly items-center"
+            containerClassName='w-full mt-3 flex justify-evenly items-center'
             previousClassName={'p-2'}
             nextClassName={''}
             pageClassName={''}
@@ -357,7 +344,7 @@ const PaymentsWorkers = () => {
           />
         </>
       ) : (
-        <div className="w-full mt-5 p-10 flex justify-center items-center">
+        <div className='w-full mt-5 p-10 flex justify-center items-center'>
           <label>Sin resultados.</label>
         </div>
       )}

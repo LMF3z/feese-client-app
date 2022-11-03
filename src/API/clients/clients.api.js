@@ -7,7 +7,6 @@ export const createClient = async (data) =>
   });
 
 export const getClientByQuery = async (query, id_company) =>
-  await axios.get(
-    `${base_url}/clients/get-all-matches-clients?query=${query}&id_company=${id_company}`,
-    { headers: headers() }
-  );
+  await axios.get(`${base_url}/clients/get-all-matches-clients?query=${query}&id_company=${id_company}`, {
+    headers: headers(),
+  });

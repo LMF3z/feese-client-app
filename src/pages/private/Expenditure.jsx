@@ -7,6 +7,7 @@ import {
   SwipeableListItem,
 } from '@sandstreamdev/react-swipeable-list';
 import ReactPaginate from 'react-paginate';
+import { locale } from '../../constants';
 import FormExpenditureSchema from '../../validations/form.expenditure';
 import Button from '../../components/Button';
 import InputWithLabel from '../../components/InputWithLabel';
@@ -238,28 +239,28 @@ const Expenditure = () => {
   if (alertModal) {
     return (
       <ContainerModalContext
-        classes="md:w-1/2 lg:w-1/3 bg-custom_bg"
+        classes='md:w-1/2 lg:w-1/3 bg-secondaryColor'
         onCloseModal={() => setAlertModal(false)}
       >
         <ModalAuthorization
           handleAccept={deleteExpenditureSwip}
           handleCancel={() => setAlertModal(false)}
-          message="¿Seguro que desea eliminar este gasto?"
+          message='¿Seguro que desea eliminar este gasto?'
         />
       </ContainerModalContext>
     );
   }
 
   return (
-    <div className="container_section">
+    <div className='container_section'>
       <h1>Gastos</h1>
 
-      <div className="w-full flex flex-col justify-start items-start text-red-600 mt-2 p-2 border-2 border-borderBaseColor rounded-lg">
+      <div className='w-full flex flex-col justify-start items-start text-red-600 mt-2 p-2 border-2 border-borderBaseColor rounded-lg'>
         <p>Los gastos serán debitados de la caja.</p>
         <p>
           En caso de no existir efectivo no se efectuará el registro del mismo.
         </p>
-        <p className="text-green-600 mt-2">
+        <p className='text-green-600 mt-2'>
           Efectivo disponible:{' '}
           <span>${enableCash > 0 ? enableCash.toFixed(2) : enableCash}</span>
         </p>
@@ -267,106 +268,103 @@ const Expenditure = () => {
 
       <form
         onSubmit={handleSubmit(sendExpenditure)}
-        className="form_container my-2"
+        className='form_container my-2'
       >
-        {isEditMode && <input type="hidden" {...register('id')} />}
-        <div className="container_square_form grid grid-cols-1 grid-rows-4 gap-3">
-          <div className="">
+        {isEditMode && <input type='hidden' {...register('id')} />}
+        <div className='container_square_form grid grid-cols-1 grid-rows-4 gap-3'>
+          <div className=''>
             <InputWithLabel
-              label="Descripción de gasto."
-              type="text"
-              placeholder="Descripción de gasto."
-              name="description_expenditure"
+              label='Descripción de gasto.'
+              type='text'
+              name='description_expenditure'
               register={register}
             />
             {errors?.description_expenditure?.message && (
               <ShowErrorForm label={errors?.description_expenditure?.message} />
             )}
           </div>
-          <div className="">
+          <div className=''>
             <InputWithLabel
-              label="Cantidad"
-              type="number"
-              placeholder="Cantidad"
-              name="amount_article"
+              label='Cantidad'
+              type='number'
+              name='amount_article'
               register={register}
             />
             {errors?.amount_article?.message && (
               <ShowErrorForm label={errors?.amount_article?.message} />
             )}
           </div>
-          <div className="">
+          <div className=''>
             <InputWithLabel
-              label="Costo"
-              type="number"
-              placeholder="Costo"
-              name="cost_expenditure"
+              label='Costo'
+              type='number'
+              name='cost_expenditure'
               register={register}
             />
             {errors?.cost_expenditure?.message && (
               <ShowErrorForm label={errors?.cost_expenditure?.message} />
             )}
           </div>
-          <div className="w-full flex justify-end items-center space-x-3">
+          <div className='w-full flex justify-end items-center space-x-3'>
             {isEditMode && (
               <Button
-                label="Cancelar"
-                type="button"
-                classes="w-2/5 md:w-[30%]"
+                label='Cancelar'
+                type='button'
+                classes='w-2/5 md:w-[30%]'
                 handleClick={() => {
                   reset();
                   setIsEditMode(false);
                 }}
               />
             )}
-            <Button label="Guardar" classes="w-2/5 md:w-[30%]" />
+            <Button label='Guardar' classes='w-2/5 md:w-[30%]' />
           </div>
         </div>
       </form>
 
-      <section className="w-full min-h-20 flex flex-col justify-between items-center space-y-4 md:space-y-0 md:grid md:grid-cols-2 md:grid-rows-1 md:gap-3">
-        <div className="w-full">
-          <label className="">Fecha inicial</label>
+      <section className='w-full min-h-20 flex flex-col justify-between items-center space-y-4 md:space-y-0 md:grid md:grid-cols-2 md:grid-rows-1 md:gap-3'>
+        <div className='w-full'>
+          <label className=''>Fecha inicial</label>
           <DatePicker
-            className="input w-full"
+            locale={locale}
+            className='input w-full'
             selected={initialDate}
             onChange={(date) => setInitialDate(date)}
-            locale="es"
             maxDate={limitDate}
             showTimeSelect={false}
-            dateFormat="dd-MM-yyyy"
+            dateFormat='dd-MM-yyyy'
           />
         </div>
-        <div className="w-full">
-          <label className="">Fecha final</label>
+        <div className='w-full'>
+          <label className=''>Fecha final</label>
           <DatePicker
-            className="input w-full"
+            locale={locale}
+            className='input w-full'
             selected={finishDate}
             onChange={(date) => setFinishDate(date)}
-            locale="es"
             maxDate={limitDate}
             showTimeSelect={false}
-            dateFormat="dd-MM-yyyy"
+            dateFormat='dd-MM-yyyy'
           />
         </div>
       </section>
 
       <Button
-        label="Buscar por fechas"
-        classes="my-3"
-        type="button"
+        label='Buscar por fechas'
+        classes='my-3'
+        type='button'
         handleClick={getExpenditures}
       />
 
       {isLoading && <Loading />}
 
       {dataTableExpenditures.length === 0 ? (
-        <div className="w-full mt-5 p-10 flex justify-center items-center">
+        <div className='w-full mt-5 p-10 flex justify-center items-center'>
           <label>Sin resultados.</label>
         </div>
       ) : (
         <>
-          <div className="w-full max-h-50vh mt-3 rounded-lg drop-shadow-2xl overflow-x-visible sm:overflow-x-hidden overflow-y-scroll bg-transparent z-10">
+          <div className='w-full max-h-50vh mt-3 rounded-lg drop-shadow-2xl overflow-x-visible sm:overflow-x-hidden overflow-y-scroll bg-transparent z-10'>
             <SwipeableList>
               {dataTableExpenditures.map((expenditure) => (
                 <SwipeableListItem
@@ -374,8 +372,8 @@ const Expenditure = () => {
                   blockSwipe={expenditure.state_null}
                   swipeLeft={{
                     content: (
-                      <div className="w-full h-full pr-5 bg-red-600 flex justify-end items-center">
-                        <TrashIcon color="#fff" classes="lg:w-8 lg:h-8" />
+                      <div className='w-full h-full pr-5 bg-red-600 flex justify-end items-center'>
+                        <TrashIcon color='#fff' classes='lg:w-8 lg:h-8' />
                       </div>
                     ),
                     action: () => {
@@ -385,8 +383,8 @@ const Expenditure = () => {
                   }}
                   swipeRight={{
                     content: (
-                      <div className="w-full h-full pl-5 bg-blue flex justify-start items-center">
-                        <EditIcon color="#fff" classes="lg:w-8 lg:h-8" />
+                      <div className='w-full h-full pl-5 bg-blue flex justify-start items-center'>
+                        <EditIcon color='#fff' classes='lg:w-8 lg:h-8' />
                       </div>
                     ),
                     action: () => handleEditMode(expenditure),
@@ -406,7 +404,7 @@ const Expenditure = () => {
             pageRangeDisplayed={5}
             renderOnZeroPageCount={null}
             onPageChange={({ selected }) => handleChangePage(selected)}
-            containerClassName="w-full mt-3 flex justify-evenly items-center"
+            containerClassName='w-full mt-3 flex justify-evenly items-center'
             previousClassName={'p-2'}
             nextClassName={''}
             pageClassName={''}

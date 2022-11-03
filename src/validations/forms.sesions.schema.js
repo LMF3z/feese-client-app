@@ -11,9 +11,6 @@ const FormRegisterSchema = yup.object().shape({
     .string()
     .email('Ingresa un correo valido.')
     .required('Campo requerido.'),
-  type_company: yup
-    .string('Ingrese tipo de empresa.')
-    .required('Campo requerido.'),
   password_company: yup
     .string()
     .required('Campo requerido.')

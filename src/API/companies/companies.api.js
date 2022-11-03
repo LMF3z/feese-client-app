@@ -1,8 +1,25 @@
 import axios from 'axios';
 import { headers, base_url } from '../headersAPI';
+import { buildSuccessResponse } from '../../utils/handleRequest';
 
-const registerCompany = async (data) =>
-  await axios.post(`${base_url}/auth/register-company`, data);
+const registerCompany = async (data) => {
+  try {
+    const response = await axios.post(
+      `${base_url}/auth/register-company`,
+      data
+    );
+
+    const result = buildSuccessResponse(response);
+
+    return result;
+  } catch (error) {
+    return {
+      success: false,
+      msg: 'Error al registrar empresa.',
+      data: {},
+    };
+  }
+};
 
 const login = async (data) => await axios.post(`${base_url}/auth/login`, data);
 

@@ -18,8 +18,6 @@ const SubscriptionCompany = () => {
   const {
     register,
     handleSubmit,
-    setValue,
-    getValues,
     reset,
     formState: { errors },
   } = useForm({
@@ -27,7 +25,6 @@ const SubscriptionCompany = () => {
   });
 
   const [isLoading, setIsLoading] = useState(false);
-  const [isLoadingSend, setIsLoadingSend] = useState(false);
 
   const { isAuth, buildSuccessResponse } = useAuth();
 
@@ -45,9 +42,8 @@ const SubscriptionCompany = () => {
       const data = buildSuccessResponse(response);
 
       if (!data.success) {
-        return toast.error(
-          'Error al obtener datos de la membresía. Intente más tarde.'
-        );
+        setIsLoading(false);
+        return toast.error(data.msg);
       }
 
       setMemberShipData({
@@ -61,7 +57,6 @@ const SubscriptionCompany = () => {
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
-      console.log('Error al obtener datos de la membresia', error);
     }
   };
 
@@ -80,7 +75,7 @@ const SubscriptionCompany = () => {
     data.dollar_value = memberShipData.rateDollar;
 
     try {
-      setIsLoadingSend(true);
+      setIsLoading(true);
 
       const response = await saveMembershipPayment(data);
       const dataRes = buildSuccessResponse(response);
@@ -89,83 +84,88 @@ const SubscriptionCompany = () => {
       dataRes.success && reset();
       dataRes.success && getMembershipData();
 
-      setIsLoadingSend(false);
+      setIsLoading(false);
     } catch (error) {
-      console.log('Error al registrar pago.', error);
       toast.error('Error al registrar pago. Intente más tarde.');
-      setIsLoadingSend(false);
+      setIsLoading(false);
     }
   };
 
-  if (isLoading) {
-    return <Loading />;
-  }
-
   return (
-    <div className="container_section">
+    <div className='container_section'>
       <h1>Detalles de tu suscripción</h1>
 
-      <div className="w-full min-h-10 flex flex-col justify-center items-start space-y-3 p-5 my-10 text-2xl border-2 border-borderBaseColor rounded-lg">
-        <div>
-          <label>Costo membresia: </label>
-          <span className="text-buttonSuccessColor text-3xl">
-            ${memberShipData?.priceMembership?.toFixed(2)}
-          </span>
-        </div>
-
-        <div>
-          <label>Estado: </label>
-          <span className="text-buttonSuccessColor text-3xl">
-            {memberShipData?.stateMembership}
-          </span>
-        </div>
-        {memberShipData?.lastDatePayment && (
-          <div>
-            <label>Ultimo Pago: </label>
-            <span className="text-buttonSuccessColor text-3xl">
-              {getDateWithOutTime(memberShipData?.lastDatePayment)}
-            </span>
+      <section className='w-full flex flex-col justify-start items-start space-y-2 my-5 p-2 border-2 border-borderBaseColor rounded-lg'>
+        {isLoading ? (
+          <Loading />
+        ) : (
+          <div className='flex flex-col text-sm text-smoothTextColor'>
+            <label>
+              Costo membresia:{' '}
+              <span className='text-lg text-white'>
+                $
+                {memberShipData?.priceMembership
+                  ? memberShipData?.priceMembership?.toFixed(2)
+                  : '0'}
+              </span>
+            </label>
+            <label>
+              Estado:{' '}
+              <span className='text-lg text-white'>
+                {memberShipData?.stateMembership}
+              </span>
+            </label>
+            <label>
+              Ultimo Pago:{' '}
+              <span className='text-lg text-white'>
+                {memberShipData?.lastDatePayment &&
+                  getDateWithOutTime(memberShipData?.lastDatePayment)}
+              </span>
+            </label>
+            <label>
+              Tasa del día:{' '}
+              <span className='text-lg text-white'>
+                Bs.{' '}
+                {memberShipData?.rateDollar
+                  ? memberShipData?.rateDollar?.toFixed(2)
+                  : '0'}
+              </span>
+            </label>
+            <label>
+              Total a pagar:{' '}
+              <span className='text-lg text-white'>
+                Bs.{memberShipData?.totalToPay?.toFixed(2)}
+              </span>
+            </label>
           </div>
         )}
-        <div>
-          <label>Tasa del día: </label>
-          <span className="text-buttonSuccessColor text-3xl">
-            ${memberShipData?.rateDollar?.toFixed(2)}
-          </span>
-        </div>
-        <div>
-          <label>Total a pagar: </label>
-          <span className="text-buttonSuccessColor text-3xl">
-            Bs.{memberShipData?.totalToPay?.toFixed(2)}
-          </span>
-        </div>
-      </div>
+      </section>
 
-      {isLoadingSend && <Loading />}
+      {isLoading && <Loading />}
 
       <form
         onSubmit={handleSubmit(saveNewPaymentCompanyMembership)}
-        className="form_container"
+        className='form_container'
       >
-        <div className="container_square_form md:flex md:justify-evenly md:items-center md:space-x-3">
-          <div className="w-full md:w-1/2">
+        <div className='container_square_form md:flex md:justify-evenly md:items-center md:space-x-3'>
+          <div className='w-full md:w-1/2'>
             <InputWithLabel
-              label="N° referencia"
-              type="number"
-              placeholder="12345678"
-              name="reference_transfer"
+              label='N° referencia'
+              type='number'
+              placeholder='12345678'
+              name='reference_transfer'
               register={register}
             />
             {errors?.reference_transfer?.message && (
               <ShowErrorForm label={errors?.reference_transfer?.message} />
             )}
           </div>
-          <div className="w-full md:w-1/2 mt-3 lg:mt-0">
+          <div className='w-full md:w-1/2 mt-3 lg:mt-0'>
             <InputWithLabel
-              label="Cantidad Cancelada."
-              type="number"
-              placeholder="0.00"
-              name="amount_payment_membership"
+              label='Cantidad Cancelada.'
+              type='number'
+              placeholder='0.00'
+              name='amount_payment_membership'
               register={register}
             />
             {errors?.amount_payment_membership?.message && (
@@ -179,7 +179,7 @@ const SubscriptionCompany = () => {
           </div>
         </div>
 
-        <Button label="Guardar" classes="my-3" />
+        <Button label='Guardar' classes='my-3' />
       </form>
     </div>
   );

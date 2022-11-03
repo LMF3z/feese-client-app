@@ -94,8 +94,8 @@ const ModalAssignEmployee = ({ closeModal }) => {
 
   const renderItemEmployee = (item) => {
     return (
-      <div className="w-full h-12 bg-secondaryColor relative z-0 p-1">
-        <div className="h-10 flex justify-center items-center hover:bg-SelectColor rounded-lg">
+      <div className='w-full h-12 bg-SelectColor relative z-0 p-1'>
+        <div className='h-10 flex justify-center items-center hover:bg-secondaryColor rounded-lg'>
           {item.name}
         </div>
       </div>
@@ -104,8 +104,8 @@ const ModalAssignEmployee = ({ closeModal }) => {
 
   return (
     <>
-      <div className="container_section">
-        <div className="w-full h-10 mb-3">
+      <div className='container_section'>
+        <div className='w-full h-10 mb-3'>
           <AutoSuggest
             inputProps={{ placeholder: 'Buscar empleados' }}
             onFetchFunction={getEmployeesQuery}
@@ -117,7 +117,7 @@ const ModalAssignEmployee = ({ closeModal }) => {
 
         {isLoading && <Loading />}
 
-        <section className="w-full max-h-[50vh] pt-5 flex flex-col justify-center items-center space-y-3 overflow-x-hidden overflow-y-auto">
+        <section className='w-full max-h-[50vh] grid grid-cols-1 gap-3 overflow-x-hidden overflow-y-auto'>
           {dataTableEmployee.length > 0 &&
             dataTableEmployee.map((employee) => (
               <ItemEmployeeAsig key={employee.id} employee={employee} />
@@ -131,7 +131,7 @@ const ModalAssignEmployee = ({ closeModal }) => {
           pageRangeDisplayed={5}
           renderOnZeroPageCount={null}
           onPageChange={({ selected }) => handleChangePage(selected)}
-          containerClassName="w-full mt-3 flex justify-evenly items-center"
+          containerClassName='w-full mt-3 flex justify-evenly items-center'
           previousClassName={'p-2'}
           nextClassName={''}
           pageClassName={''}
@@ -140,9 +140,9 @@ const ModalAssignEmployee = ({ closeModal }) => {
         />
       </div>
       <Button
-        label="Facturar"
-        type="button"
-        classes="my-3"
+        label='Facturar'
+        type='button'
+        classes='my-3'
         handleClick={closeModal}
       />
     </>

@@ -196,34 +196,33 @@ const Employees = () => {
   if (alertModal) {
     return (
       <ContainerModalContext
-        classes="md:w-1/2 lg:w-1/3 bg-custom_bg"
+        classes='md:w-1/2 lg:w-1/3 bg-secondaryColor'
         onCloseModal={() => setAlertModal(false)}
       >
         <ModalAuthorization
           handleAccept={deleteEmployee}
           handleCancel={() => setAlertModal(false)}
-          message="¿Seguro que desea eliminar este empleado?"
+          message='¿Seguro que desea eliminar este empleado?'
         />
       </ContainerModalContext>
     );
   }
 
   return (
-    <div className="container_section">
-      <h1 className="text-2xl">Empleados</h1>
+    <div className='container_section'>
+      <h1 className='text-2xl'>Empleados</h1>
       <form
         onSubmit={handleSubmit(registerEmployee)}
-        className="form_container min-h-10vh pt-3 z-20 mb-8"
+        className='form_container min-h-10vh pt-3 z-20 mb-8'
       >
-        {isEditMode && <input type="hidden" {...register('id')} />}
+        {isEditMode && <input type='hidden' {...register('id')} />}
 
-        <div className="container_square_form grid grid-cols-1 grid-flow-row md:grid-cols-2 md:grid-rows-4 gap-3">
-          <div className="w-full">
+        <div className='container_square_form grid grid-cols-1 grid-flow-row md:grid-cols-2 md:grid-rows-4 gap-3'>
+          <div className='w-full'>
             <InputWithLabel
-              label="Nombre"
-              type="text"
-              placeholder="Nombre"
-              name="name_employee"
+              label='Nombre'
+              type='text'
+              name='name_employee'
               register={register}
             />
             {errors?.name_employee?.message && (
@@ -231,12 +230,11 @@ const Employees = () => {
             )}
           </div>
 
-          <div className="w-full">
+          <div className='w-full'>
             <InputWithLabel
-              label="Apellido"
-              type="text"
-              placeholder="Apellido"
-              name="last_name_employee"
+              label='Apellido'
+              type='text'
+              name='last_name_employee'
               register={register}
             />
             {errors?.last_name_employee?.message && (
@@ -244,12 +242,11 @@ const Employees = () => {
             )}
           </div>
 
-          <div className="w-full">
+          <div className='w-full'>
             <InputWithLabel
-              label="Identificación"
-              type="text"
-              placeholder="Identificación"
-              name="identification_employee"
+              label='Identificación'
+              type='text'
+              name='identification_employee'
               register={register}
             />
             {errors?.identification_employee?.message && (
@@ -257,12 +254,11 @@ const Employees = () => {
             )}
           </div>
 
-          <div className="w-full">
+          <div className='w-full'>
             <InputWithLabel
-              label="Teléfono"
-              type="text"
-              placeholder="Teléfono"
-              name="phone_employee"
+              label='Teléfono'
+              type='text'
+              name='phone_employee'
               register={register}
             />
             {errors?.phone_employee?.message && (
@@ -270,36 +266,37 @@ const Employees = () => {
             )}
           </div>
 
-          <div className="w-full">
+          <div className='w-full'>
             <SelectWithLabel
-              label="Sucursal"
-              name="sucursal_employee"
+              label='Sucursal'
+              name='sucursal_employee'
               register={register}
+              disabled
             >
               <option
-                select="true"
-                value="none"
-                className="text-text_base_color md:text-lg"
+                select='true'
+                value='none'
+                className='text-text_base_color md:text-lg'
               >
                 Sin sucursal
               </option>
             </SelectWithLabel>
           </div>
 
-          <div className="w-full">
+          <div className='w-full'>
             <SelectWithLabel
-              label="Tipo de pago"
-              name="payment_type"
+              label='Tipo de pago'
+              name='payment_type'
               register={register}
             >
               <option
-                select="true"
-                value="fixed_payment"
-                className="text-text_base_color"
+                select='true'
+                value='fixed_payment'
+                className='text-text_base_color'
               >
                 Pago fijo
               </option>
-              <option value="percent_payment" className="text-text_base_color">
+              <option value='percent_payment' className='text-text_base_color'>
                 Pago por porcentaje
               </option>
             </SelectWithLabel>
@@ -308,12 +305,11 @@ const Employees = () => {
             )}
           </div>
 
-          <div className="w-full md:col-span-2">
+          <div className='w-full md:col-span-2'>
             <InputWithLabel
-              label="Pago"
-              type="number"
-              placeholder="Pago"
-              name="payment_amount"
+              label='Pago'
+              type='number'
+              name='payment_amount'
               register={register}
             />
             {errors?.payment_amount?.message && (
@@ -321,19 +317,19 @@ const Employees = () => {
             )}
           </div>
 
-          <div className="w-full md:col-span-2 h-10 flex justify-end items-center space-x-3">
+          <div className='w-full md:col-span-2 h-10 flex justify-end items-center space-x-3'>
             {isEditMode && (
               <Button
-                label="Cancelar"
-                type="button"
-                classes="w-2/5 md:w-[30%]"
+                label='Cancelar'
+                type='button'
+                classes='w-2/5 md:w-[30%]'
                 handleClick={() => {
                   reset();
                   setIsEditMode(false);
                 }}
               />
             )}
-            <Button label="Guardar" classes="w-2/5 md:w-[30%]" />
+            <Button label='Guardar' classes='w-2/5 md:w-[30%]' />
           </div>
         </div>
       </form>
@@ -341,20 +337,20 @@ const Employees = () => {
       {isLoading && <Loading />}
 
       {dataTableEmployee?.length === 0 ? (
-        <div className="w-full mt-5 p-10 flex justify-center items-center">
+        <div className='w-full mt-5 p-10 flex justify-center items-center'>
           <label>Sin resultados.</label>
         </div>
       ) : (
         <>
-          <div className="w-full max-h-50vh mt-10 drop-shadow-2xl overflow-x-visible sm:overflow-x-hidden overflow-y-scroll z-10">
+          <div className='w-full max-h-50vh mt-10 drop-shadow-2xl overflow-x-visible sm:overflow-x-hidden overflow-y-scroll z-10'>
             <SwipeableList>
               {dataTableEmployee.map((employeeItem) => (
                 <SwipeableListItem
                   key={employeeItem.id}
                   swipeLeft={{
                     content: (
-                      <div className="w-full h-full pr-5 bg-red-600 flex justify-end items-center">
-                        <TrashIcon color="#fff" classes="lg:w-8 lg:h-8" />
+                      <div className='w-full h-full pr-5 bg-red-600 flex justify-end items-center'>
+                        <TrashIcon color='#fff' classes='lg:w-8 lg:h-8' />
                       </div>
                     ),
                     action: () => {
@@ -364,8 +360,8 @@ const Employees = () => {
                   }}
                   swipeRight={{
                     content: (
-                      <div className="w-full h-full pl-5 bg-blue flex justify-start items-center">
-                        <EditIcon color="#fff" classes="lg:w-8 lg:h-8" />
+                      <div className='w-full h-full pl-5 bg-blue flex justify-start items-center'>
+                        <EditIcon color='#fff' classes='lg:w-8 lg:h-8' />
                       </div>
                     ),
                     action: () => handleEditMode(employeeItem),
@@ -385,7 +381,7 @@ const Employees = () => {
             pageRangeDisplayed={5}
             renderOnZeroPageCount={null}
             onPageChange={({ selected }) => handleChangePage(selected)}
-            containerClassName="w-full mt-3 flex justify-evenly items-center"
+            containerClassName='w-full mt-3 flex justify-evenly items-center'
             previousClassName={'p-2'}
             nextClassName={''}
             pageClassName={''}

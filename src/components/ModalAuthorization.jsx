@@ -11,16 +11,16 @@ const ModalAuthorization = ({ handleAccept, handleCancel, message }) => {
   };
 
   return (
-    <section className="w-full min-h-full h-60 flex flex-col justify-between items-center bg-custom_bg">
-      <h1 className="text-3xl text-center mx-auto text-white">{message}</h1>
+    <section className='w-full min-h-full h-60 flex flex-col justify-between items-center'>
+      <h1 className='text-3xl text-center mx-auto text-white'>{message}</h1>
 
-      <div className="w-full h-28 flex flex-col justify-center items-center space-y-3">
+      <div className='w-full h-28 flex flex-col justify-center items-center space-y-3'>
         <Button
-          label="Si, Estoy seguro"
-          classes="bg-red-600 text-white hover:bg-red-700"
+          label='Si, Estoy seguro'
+          classes='bg-red-600 text-white hover:bg-red-700'
           handleClick={acceptFunction}
         />
-        <Button label="No, cancelar" handleClick={handleCancel} />
+        <Button label='No, cancelar' handleClick={handleCancel} />
       </div>
 
       {isLoading && <Loading />}

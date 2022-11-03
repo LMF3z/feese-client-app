@@ -4,7 +4,7 @@ import storage from '../utils/handleLocal';
 export const base_url = process.env.REACT_APP_API_URL;
 
 export const headers = (ContentType = 'application/json') => {
-  const { token, isMembershipActive } = storage.getDataCompany();
+  const { token } = storage.getDataCompany();
 
   if (token) {
     return {

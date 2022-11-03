@@ -3,14 +3,13 @@ const InputWithLabel = (props) => {
 
   if (type === 'number') {
     return (
-      <div className="flex flex-col justify-center items-start">
-        <label className="text-xs">{label}</label>
+      <div className='flex flex-col justify-center items-start'>
+        <label className='text-xs'>{label}</label>
         <input
           type={type}
-          step="0.01"
+          step='0.01'
           min={'0.01'}
-          className="input w-full"
-          placeholder={placeholder}
+          className='input w-full'
           {...register(name)}
         />
       </div>
@@ -18,11 +17,11 @@ const InputWithLabel = (props) => {
   }
 
   return (
-    <div className="flex flex-col justify-center items-start">
-      <label className="text-xs">{label}</label>
+    <div className='flex flex-col justify-center items-start'>
+      <label className='text-xs'>{label}</label>
       <input
         type={type}
-        className="input w-full"
+        className='input w-full'
         placeholder={placeholder}
         {...register(name)}
       />

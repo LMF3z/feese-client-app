@@ -1,17 +1,15 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { routes } from '../constants';
-import employeesApi from '../API/employees/employees.api';
 import orderApi from '../API/orders/orders.api';
 import Loading from '../assets/Icons/Loading';
 import { ContextApp } from '../Store/ContextApp';
 import calcFunctions from '../utils/calc';
 import storage from '../utils/handleLocal';
 import { buildSuccessResponse } from '../utils/handleRequest';
-import timeFunctions, { converterDateToIso } from '../utils/handleTimes';
+import timeFunctions from '../utils/handleTimes';
 import Button from './Button';
-import ItemEmployeeAsig from './ItemEmployeeAsig';
 import types from '../Store/contextTypes';
 
 const ModalAssignmentsOrder = ({ closeModal }) => {
@@ -121,66 +119,70 @@ const ModalAssignmentsOrder = ({ closeModal }) => {
   };
 
   return (
-    <div className="w-full text-white">
+    <div className='w-full text-white'>
       {isLoading && <Loading />}
-      <div className="w-full flex flex-col justify-center items-start space-y-2 md:col-span-2 font-bold my-3">
+      <div className='w-full flex flex-col justify-center items-start space-y-2 md:col-span-2 font-bold my-3'>
         <label>Total a pagar: ${state.total_to_pay_order}</label>
         <label>Vuelto: ${change.toFixed(2)}</label>
         {/* <label>Tipo de pago:</label> */}
       </div>
 
-      <form onSubmit={handleSubmit} className="form_container">
-        <article className="w-full min-h-10vh lg:h-70vh max-h-40vh overflow-x-hidden overflow-y-auto">
-          <section className="grid gap-3 grid-cols-1 grid-flow-row md:grid-cols-2 cursor-pointer">
-            <div className="flex flex-col justify-center items-start">
+      <form
+        onSubmit={handleSubmit}
+        className='form_container'
+        autoComplete='off'
+      >
+        <article className='w-full min-h-10vh lg:h-70vh max-h-40vh overflow-x-hidden overflow-y-auto'>
+          <section className='grid gap-3 grid-cols-1 grid-flow-row md:grid-cols-2 cursor-pointer'>
+            <div className='flex flex-col justify-center items-start'>
               <label>Efectivo</label>
               <input
-                type="number"
-                min="0"
-                step="0.01"
-                name="cash"
-                className="input w-full text-base"
-                placeholder="0.00"
+                type='number'
+                min='0'
+                step='0.01'
+                name='cash'
+                className='input w-full text-base'
+                placeholder='0.00'
                 onChange={handleChangeTypePayment}
                 value={dataPayment.cash}
               />
             </div>
 
-            <div className="flex flex-col justify-center items-start">
+            <div className='flex flex-col justify-center items-start'>
               <label>Punto de venta</label>
               <input
-                type="number"
-                min="0"
-                step="0.01"
-                name="card"
-                className="input w-full text-base"
-                placeholder="0.00"
+                type='number'
+                min='0'
+                step='0.01'
+                name='card'
+                className='input w-full text-base'
+                placeholder='0.00'
                 onChange={handleChangeTypePayment}
                 value={dataPayment.card}
               />
             </div>
 
-            <div className="flex flex-col justify-center items-start">
+            <div className='flex flex-col justify-center items-start'>
               <label>Transferencia</label>
               <input
-                type="number"
-                min="0"
-                step="0.01"
-                name="transfer"
-                className="input w-full text-base"
-                placeholder="0.00"
+                type='number'
+                min='0'
+                step='0.01'
+                name='transfer'
+                className='input w-full text-base'
+                placeholder='0.00'
                 onChange={handleChangeTypePayment}
                 value={dataPayment.transfer}
               />
             </div>
           </section>
         </article>
-        <div className="w-full h-10 mt-3 flex justify-end items-center">
+        <div className='w-full h-10 mt-3 flex justify-end items-center'>
           <Button
-            type="submit"
+            type='submit'
             handleClick={() => {}}
-            label="Procesar"
-            classes="text-base w-35%"
+            label='Procesar'
+            classes='text-base w-[50%] md:w-[35%]'
           />
         </div>
       </form>

@@ -186,33 +186,32 @@ const Services = () => {
   if (alertModal) {
     return (
       <ContainerModalContext
-        classes="md:w-1/2 lg:w-1/3 bg-custom_bg"
+        classes='md:w-1/2 lg:w-1/3 bg-secondaryColor'
         onCloseModal={() => setAlertModal(false)}
       >
         <ModalAuthorization
           handleAccept={deleteService}
           handleCancel={() => setAlertModal(false)}
-          message="¿Seguro que desea eliminar este servicio?"
+          message='¿Seguro que desea eliminar este servicio?'
         />
       </ContainerModalContext>
     );
   }
 
   return (
-    <div className="container_section">
-      <h1 className="text-2xl">Servicios</h1>
+    <div className='container_section'>
+      <h1 className='text-2xl'>Servicios</h1>
       <form
         onSubmit={handleSubmit(createService)}
-        className="w-full mt-3 grid grid-rows-3 gap-3 min-h-10vh"
+        className='w-full mt-3 grid grid-rows-3 gap-3 min-h-10vh'
       >
-        {isEditMode ? <input type="hidden" {...register('id')} /> : null}
-        <section className="container_square_form">
-          <div className="w-full md:w-1/2">
+        {isEditMode ? <input type='hidden' {...register('id')} /> : null}
+        <section className='container_square_form'>
+          <div className='w-full md:w-1/2'>
             <InputWithLabel
-              label="Nombre del servicio"
-              type="text"
-              placeholder="Nombre del servicio"
-              name="name_service"
+              label='Nombre del servicio'
+              type='text'
+              name='name_service'
               register={register}
             />
             {errors?.name_service?.message && (
@@ -220,15 +219,14 @@ const Services = () => {
             )}
           </div>
         </section>
-        <section className="container_square_form md:mt-3">
-          <div className="w-full md:w-1/2">
+        <section className='container_square_form md:mt-3'>
+          <div className='w-full md:w-1/2'>
             <InputWithLabel
-              label="Costo del servicio"
-              type="number"
-              step="0.01"
+              label='Costo del servicio'
+              type='number'
+              step='0.01'
               min={'0.01'}
-              placeholder="Costo del servicio"
-              name="price_service"
+              name='price_service'
               register={register}
             />
             {errors?.price_service?.message && (
@@ -236,39 +234,39 @@ const Services = () => {
             )}
           </div>
         </section>
-        <div className="w-full md:col-span-2 h-10 flex justify-end items-center space-x-3">
+        <div className='w-full md:col-span-2 h-10 flex justify-end items-center space-x-3'>
           {isEditMode && (
             <Button
-              label="Cancelar"
-              type="button"
-              classes="w-2/5 md:w-[30%]"
+              label='Cancelar'
+              type='button'
+              classes='w-2/5 md:w-[30%]'
               handleClick={() => {
                 reset();
                 setIsEditMode(false);
               }}
             />
           )}
-          <Button label="Guardar" classes="w-2/5 md:w-[30%]" />
+          <Button label='Guardar' classes='w-2/5 md:w-[30%]' />
         </div>
       </form>
 
       {isLoading && <Loading />}
 
       {dataTableServices.length === 0 ? (
-        <div className="w-full mt-5 p-10 flex justify-center items-center">
+        <div className='w-full mt-5 p-10 flex justify-center items-center'>
           <label>Sin resultados.</label>
         </div>
       ) : (
         <>
-          <div className="w-full max-h-65vh mt-5 rounded-lg drop-shadow-2xl overflow-x-visible sm:overflow-x-hidden overflow-y-scroll z-10">
+          <div className='w-full max-h-65vh mt-5 rounded-lg drop-shadow-2xl overflow-x-visible sm:overflow-x-hidden overflow-y-scroll z-10'>
             <SwipeableList>
               {dataTableServices.map((serviceItem) => (
                 <SwipeableListItem
                   key={serviceItem.id}
                   swipeLeft={{
                     content: (
-                      <div className="w-full h-full pr-5 bg-red-600 flex justify-end items-center">
-                        <TrashIcon color="#fff" classes="lg:w-8 lg:h-8" />
+                      <div className='w-full h-full pr-5 bg-red-600 flex justify-end items-center'>
+                        <TrashIcon color='#fff' classes='lg:w-8 lg:h-8' />
                       </div>
                     ),
                     action: () => {
@@ -278,8 +276,8 @@ const Services = () => {
                   }}
                   swipeRight={{
                     content: (
-                      <div className="w-full h-full pl-5 bg-blue flex justify-start items-center">
-                        <EditIcon color="#fff" classes="lg:w-8 lg:h-8" />
+                      <div className='w-full h-full pl-5 bg-blue flex justify-start items-center'>
+                        <EditIcon color='#fff' classes='lg:w-8 lg:h-8' />
                       </div>
                     ),
                     action: () => handleEditMode(serviceItem),
@@ -299,7 +297,7 @@ const Services = () => {
             pageRangeDisplayed={5}
             renderOnZeroPageCount={null}
             onPageChange={({ selected }) => handleChangePage(selected)}
-            containerClassName="w-full mt-3 flex justify-evenly items-center"
+            containerClassName='w-full mt-3 flex justify-evenly items-center'
             previousClassName={'p-2'}
             nextClassName={''}
             pageClassName={''}

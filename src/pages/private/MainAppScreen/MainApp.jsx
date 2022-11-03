@@ -1,23 +1,23 @@
 import { useState, useEffect, useContext } from 'react';
-import storage from '../../utils/handleLocal';
-import servicesAPI from '../../API/services/services.api';
+import storage from '../../../utils/handleLocal';
+import servicesAPI from '../../../API/services/services.api';
 import {
   getClientsByQuery,
   getServicesByQuery,
-} from '../../utils/handleRequest';
+} from '../../../utils/handleRequest';
 import toast from 'react-hot-toast';
-import Loading from '../../assets/Icons/Loading';
-import ItemServiceAsig from '../../components/ItemServiceAsig';
-import { ContextApp } from '../../Store/ContextApp';
-import ItemServiceSelected from '../../components/ItemServiceSelected';
-import Button from '../../components/Button';
-import ContainerModalContext from '../../components/ContainerModalContext';
-import ModalCreateClient from '../../components/ModalCreateClient';
-import ModalAssignEmployee from './ModalAssignEmployee';
-import ModalAssignmentsOrder from '../../components/ModalAssignmentsOrder';
-import AutoSuggest from '../../components/AutoSuggest';
-import types from '../../Store/contextTypes';
-import useAuth from '../../components/hooks/auth/useAuth';
+import Loading from '../../../assets/Icons/Loading';
+import ItemServiceAsig from '../../../components/ItemServiceAsig';
+import { ContextApp } from '../../../Store/ContextApp';
+import ItemServiceSelected from '../../../components/ItemServiceSelected';
+import Button from '../../../components/Button';
+import ContainerModalContext from '../../../components/ContainerModalContext';
+import ModalCreateClient from '../../../components/ModalCreateClient';
+import ModalAssignEmployee from '../ModalAssignEmployee';
+import ModalAssignmentsOrder from '../../../components/ModalAssignmentsOrder';
+import AutoSuggest from '../../../components/AutoSuggest';
+import types from '../../../Store/contextTypes';
+import useAuth from '../../../components/hooks/auth/useAuth';
 
 const MainApp = () => {
   const { state, dispatch } = useContext(ContextApp);
@@ -119,8 +119,8 @@ const MainApp = () => {
 
   const renderItemClient = (item) => {
     return (
-      <div className="w-full h-12 bg-secondaryColor relative z-0 p-1">
-        <div className="h-10 flex justify-center items-center hover:bg-SelectColor rounded-lg">
+      <div className='w-full h-12 bg-SelectColor relative z-0 p-1'>
+        <div className='h-10 flex justify-center items-center hover:bg-secondaryColor rounded-lg'>
           {item.name} - {item.last_name}
         </div>
       </div>
@@ -129,8 +129,8 @@ const MainApp = () => {
 
   const renderItemService = (item) => {
     return (
-      <div className="w-full h-12 bg-secondaryColor relative z-0 p-1">
-        <div className="h-10 flex justify-center items-center hover:bg-SelectColor rounded-lg">
+      <div className='w-full h-12 bg-SelectColor relative z-0 p-1'>
+        <div className='h-10 flex justify-center items-center hover:bg-secondaryColor rounded-lg'>
           {item.name_service}
         </div>
       </div>
@@ -155,9 +155,9 @@ const MainApp = () => {
   if (showModalCreateClient) {
     return (
       <ContainerModalContext
-        title="Crear cliente"
+        title='Crear cliente'
         onCloseModal={() => setShowModalCreateClient(false)}
-        classes="md:w-1/2 bg-primaryColor"
+        classes='md:w-1/2 bg-primaryColor'
       >
         <ModalCreateClient closeModal={() => setShowModalCreateClient(false)} />
       </ContainerModalContext>
@@ -167,9 +167,9 @@ const MainApp = () => {
   if (showModalAssignmentEmployee) {
     return (
       <ContainerModalContext
-        title="Asigne a un empleado"
+        title='Asigne a un empleado'
         onCloseModal={() => setShowModalAssignmentEmployee(false)}
-        classes="md:w-1/2 bg-primaryColor"
+        classes='md:w-1/2 bg-primaryColor'
       >
         <ModalAssignEmployee
           closeModal={() => {
@@ -184,9 +184,9 @@ const MainApp = () => {
   if (showModalInvoice) {
     return (
       <ContainerModalContext
-        title="Seleccione método de pago"
+        title='Seleccione método de pago'
         onCloseModal={() => setShowModalInvoice(false)}
-        classes="md:w-1/2 bg-primaryColor"
+        classes='md:w-1/2 bg-primaryColor'
       >
         <ModalAssignmentsOrder closeModal={() => setShowModalInvoice(false)} />
       </ContainerModalContext>
@@ -194,19 +194,19 @@ const MainApp = () => {
   }
 
   return (
-    <div className="container_section">
-      <div className="w-full text-center">
+    <div className='container_section'>
+      <div className='w-full text-center'>
         <h1>Asignaciones</h1>
 
-        <div className="w-full flex justify-end items-center py-2 pl-2 mt-2">
+        <div className='w-full flex justify-end items-center py-2 pl-2 mt-2'>
           <Button
-            type="button"
+            type='button'
             handleClick={() => setShowModalCreateClient(true)}
-            label="Crear cliente"
-            classes="w-2/5 md:w-[30%]"
+            label='Crear cliente'
+            classes='w-3/5 md:w-[30%]'
           />
         </div>
-        <div className="w-full h-10 mt-1">
+        <div className='w-full h-10 mt-1'>
           <AutoSuggest
             inputProps={{ placeholder: 'Buscar clientes' }}
             onFetchFunction={getClients}
@@ -217,10 +217,10 @@ const MainApp = () => {
         </div>
       </div>
 
-      <div className="mt-3 text-xl">
+      <div className='mt-3 text-xl'>
         <label>Servicios:</label>
       </div>
-      <div className="w-full h-10 my-3">
+      <div className='w-full h-10 my-3'>
         <AutoSuggest
           inputProps={{ placeholder: 'Buscar servicios' }}
           onFetchFunction={searchServices}
@@ -230,40 +230,40 @@ const MainApp = () => {
         />
       </div>
 
-      <section className="w-full min-h-10vh max-h-40vh overflow-x-hidden overflow-y-auto grid grid-flow-row md:grid-cols-2 gap-2 cursor-pointer">
+      <section className='w-full min-h-10vh max-h-40vh overflow-x-hidden overflow-y-auto grid grid-flow-row md:grid-cols-2 gap-2 cursor-pointer'>
         {dataTableServices.map((service) => (
           <ItemServiceAsig key={service.id} service={service} />
         ))}
       </section>
 
-      <div className="mt-3 text-xl">
+      <div className='mt-3 text-xl'>
         <label>Servicios seleccionados:</label>
       </div>
 
       {state.services_selected.length <= 0 ? (
-        <div className="w-full flex justify-center items-center">
+        <div className='w-full flex justify-center items-center'>
           <label>Nada aún...</label>
         </div>
       ) : (
-        <section className="w-full min-h-10vh max-h-40vh overflow-x-hidden overflow-y-auto grid grid-flow-row md:grid-cols-2 cursor-pointer">
+        <section className='w-full min-h-10vh max-h-40vh overflow-x-hidden overflow-y-auto grid grid-flow-row md:grid-cols-2 cursor-pointer'>
           {state.services_selected.map((service) => (
             <ItemServiceSelected key={service.id} service={service} />
           ))}
         </section>
       )}
 
-      <div className="w-full p-2 mt-3">
-        <label className="font-bold text-xl">
+      <div className='w-full p-2 mt-3'>
+        <label className='font-bold text-xl'>
           Total a pagar:{' '}
-          <span className="text-white">${state.total_to_pay_order}</span>
+          <span className='text-white'>${state.total_to_pay_order}</span>
         </label>
       </div>
 
       <Button
-        type="button"
+        type='button'
         handleClick={handleOpenModalAssignment}
-        label="Asignar"
-        classes="my-3"
+        label='Asignar'
+        classes='my-3'
       />
 
       {/* <div className="w-full h-10 flex justify-end items-center mt-3">
