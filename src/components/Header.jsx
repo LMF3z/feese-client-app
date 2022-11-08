@@ -63,7 +63,7 @@ const Header = () => {
             <Button
               label='Descargar app'
               type='button'
-              classes='bg-red-600 w-3/5 h-full'
+              classes='bg-red-600 w-[70%] h-full'
               handleClick={downloadApp}
             />
           </div>
