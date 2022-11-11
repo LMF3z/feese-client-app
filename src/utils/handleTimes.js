@@ -7,13 +7,11 @@ const getActualDate = () => {
 
 const getActualDateFormat = () => {
   const newDate = new Date();
-  // newDate.setHours(0, 0, 0, 0);
   return formatInTimeZone(newDate, 'America/Caracas', 'yyyy-MM-dd HH:mm:ssXXX');
 };
 
 export const convertDateToFormatLocalTime = (date) => {
   const newDate = new Date(date);
-  // newDate.setHours(0, 0, 0, 0);
   return formatInTimeZone(newDate, 'America/Caracas', 'yyyy-MM-dd HH:mm:ssXXX');
 };
 

@@ -1,12 +1,12 @@
-import Button from './Button';
+import Button from '../../../../components/Button';
 import { useNavigate } from 'react-router-dom';
-import { routes } from '../constants';
+import { routes } from '../../../../constants';
 
 const ItemEmployeeListSwip = ({ employeeItem }) => {
   let navigate = useNavigate();
 
   return (
-    <article className='w-full bg-secondaryColor flex flex-col justify-center items-start space-y-5 p-5 drop-shadow-2xl'>
+    <article className='w-full bg-secondaryColor flex flex-col justify-center items-start space-y-5 p-5 drop-shadow-2xl container-list-item-data'>
       <section className='text-base capitalize'>
         <div>
           <label>Nombre:</label> <span>{employeeItem.name_employee}</span>

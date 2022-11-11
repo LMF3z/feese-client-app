@@ -1,6 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import {
+  SwipeableList,
+  SwipeableListItem,
+} from '@sandstreamdev/react-swipeable-list';
+import { IoMdTrash } from 'react-icons/io';
 import Button from '../../../components/Button';
 import ShowErrorForm from '../../../components/ShowErrorForm';
 import formsSesions from '../../../validations/forms.sesions.schema';
@@ -13,10 +18,6 @@ import {
   getAllUsersCompany,
   registerUserCompany,
 } from '../../../API/employees/employees.api';
-import {
-  SwipeableList,
-  SwipeableListItem,
-} from '@sandstreamdev/react-swipeable-list';
 import TrashIcon from '../../../assets/Icons/TrashIcon';
 import { roles } from '../../../constants';
 import ContainerModalContext from '../../../components/ContainerModalContext';
@@ -101,25 +102,25 @@ const UsersCompany = () => {
   };
 
   const deleteUserForCompany = async () => {
-    try {
-      toggleLoading(true);
+    const data_company_or_sucursal = storage.getDataCompany();
 
-      const response = await deleteUserCompany(userToDelete);
+    toggleLoading(true);
 
-      const registerData = buildSuccessResponse(response);
+    const response = await deleteUserCompany(
+      data_company_or_sucursal.id_company,
+      userToDelete
+    );
 
-      registerData.success
-        ? toast.success(registerData.msg, { duration: 5000 })
-        : toast.error(registerData.msg, { duration: 5000 });
-
-      registerData.success && setAlertModal(false);
-      registerData.success && getAllUsersForCompany();
-
+    if (response.success === false) {
       toggleLoading(false);
-    } catch (error) {
-      toggleLoading(false);
-      toast.error('Error al eliminar empleado.', { duration: 5000 });
+      setAlertModal(false);
+      return toast.error(response.msg);
     }
+
+    toast.success(response.msg);
+    setAlertModal(false);
+    getAllUsersForCompany();
+    toggleLoading(false);
   };
 
   return (
@@ -228,8 +229,8 @@ const UsersCompany = () => {
                   key={user.id}
                   swipeLeft={{
                     content: (
-                      <div className='w-full h-full pr-5 bg-red-600 flex justify-end items-center'>
-                        <TrashIcon color='#fff' classes='lg:w-8 lg:h-8' />
+                      <div className='w-full h-full pr-5 flex justify-end items-center'>
+                        <IoMdTrash color='#fff' className='icon-swap' />
                       </div>
                     ),
                     action: () => {
@@ -239,8 +240,8 @@ const UsersCompany = () => {
                   }}
                   swipeRight={{
                     content: (
-                      <div className='w-full h-full pl-5 bg-red-600 flex justify-start items-center'>
-                        <TrashIcon color='#fff' classes='lg:w-8 lg:h-8' />
+                      <div className='w-full h-full pl-5 flex justify-start items-center'>
+                        <IoMdTrash color='#fff' className='icon-swap' />
                       </div>
                     ),
                     action: () => {

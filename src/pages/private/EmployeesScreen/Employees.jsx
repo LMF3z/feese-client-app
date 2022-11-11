@@ -8,22 +8,22 @@ import {
 } from '@sandstreamdev/react-swipeable-list';
 import ReactPaginate from 'react-paginate';
 
-import ShowErrorForm from '../../components/ShowErrorForm';
-import Button from '../../components/Button';
-import EditIcon from '../../assets/Icons/EditIcon';
-import TrashIcon from '../../assets/Icons/TrashIcon';
-import FormEmployeeSchema from '../../validations/form.employee';
-import employeesApi from '../../API/employees/employees.api';
-import Loading from '../../assets/Icons/Loading';
-import ItemEmployeeListSwip from '../../components/ItemEmployeeListSwip';
-import storage from '../../utils/handleLocal';
-import usePaginate from '../../components/hooks/paginate/usePaginate';
-import ContainerModalContext from '../../components/ContainerModalContext';
-import ModalAuthorization from '../../components/ModalAuthorization';
-import useAuth from '../../components/hooks/auth/useAuth';
-import ButtonForPagination from '../../components/ButtonForPagination';
-import InputWithLabel from '../../components/InputWithLabel';
-import SelectWithLabel from '../../components/SelectWithLabel';
+import ItemEmployeeListSwip from './components/ItemEmployeeListSwip';
+import ShowErrorForm from '../../../components/ShowErrorForm';
+import Button from '../../../components/Button';
+import FormEmployeeSchema from '../../../validations/form.employee';
+import employeesApi from '../../../API/employees/employees.api';
+import Loading from '../../../assets/Icons/Loading';
+import storage from '../../../utils/handleLocal';
+import usePaginate from '../../../components/hooks/paginate/usePaginate';
+import ContainerModalContext from '../../../components/ContainerModalContext';
+import ModalAuthorization from '../../../components/ModalAuthorization';
+import useAuth from '../../../components/hooks/auth/useAuth';
+import ButtonForPagination from '../../../components/ButtonForPagination';
+import InputWithLabel from '../../../components/InputWithLabel';
+import SelectWithLabel from '../../../components/SelectWithLabel';
+import { IoMdTrash } from 'react-icons/io';
+import { FaEdit } from 'react-icons/fa';
 
 const Employees = () => {
   const {
@@ -137,6 +137,7 @@ const Employees = () => {
     setValue('phone_employee', employee.phone_employee);
     setValue('sucursal_employee', 'none');
     setValue('payment_type', employee.payment_type);
+    setValue('payment_amount', employee.payment_amount);
   };
 
   const updateEmployee = async (data) => {
@@ -349,8 +350,8 @@ const Employees = () => {
                   key={employeeItem.id}
                   swipeLeft={{
                     content: (
-                      <div className='w-full h-full pr-5 bg-red-600 flex justify-end items-center'>
-                        <TrashIcon color='#fff' classes='lg:w-8 lg:h-8' />
+                      <div className='w-full h-full pr-5 flex justify-end items-center'>
+                        <IoMdTrash color='#fff' className='icon-swap' />
                       </div>
                     ),
                     action: () => {
@@ -360,8 +361,8 @@ const Employees = () => {
                   }}
                   swipeRight={{
                     content: (
-                      <div className='w-full h-full pl-5 bg-blue flex justify-start items-center'>
-                        <EditIcon color='#fff' classes='lg:w-8 lg:h-8' />
+                      <div className='w-full h-full pl-5 flex justify-start items-center'>
+                        <FaEdit color='#fff' className='icon-swap' />
                       </div>
                     ),
                     action: () => handleEditMode(employeeItem),

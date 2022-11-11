@@ -25,6 +25,7 @@ const AutoSuggest = (props) => {
           setInitialQuery(newValue);
         },
         className: 'min-w-full h-10 input outline-none text-base z-0',
+        autocomplete: 'off',
       }}
       suggestions={suggestions}
       onSuggestionsFetchRequested={async ({ value }) => {
@@ -46,7 +47,8 @@ const AutoSuggest = (props) => {
         onCallbackFunction(suggestion);
       }}
       theme={{
-        suggestionsContainer: 'max-h-80 overflow-x-hidden overflow-y-visible',
+        suggestionsContainer:
+          'max-h-80 bg-primaryColor z-10 overflow-x-hidden overflow-y-visible',
       }}
     />
   );

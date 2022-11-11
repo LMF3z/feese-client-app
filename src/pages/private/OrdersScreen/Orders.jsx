@@ -7,27 +7,27 @@ import {
   SwipeableListItem,
 } from '@sandstreamdev/react-swipeable-list';
 import ReactPaginate from 'react-paginate';
+import { AiFillEye } from 'react-icons/ai';
 
-import { locale, routes } from '../../constants';
+import { locale, routes } from '../../../constants';
 import {
   annularOrder,
   getOrdersByRangeDates,
-} from '../../API/orders/orders.api';
-import ContainerModalContext from '../../components/ContainerModalContext';
-import Loading from '../../assets/Icons/Loading';
-import SeeIcon from '../../assets/Icons/SeeIcon';
-import images from '../../assets/images';
-import Button from '../../components/Button';
-import ItemOrdersListSwip from '../../components/ItemOrdersListSwip';
-import storage from '../../utils/handleLocal';
+} from '../../../API/orders/orders.api';
+import ContainerModalContext from '../../../components/ContainerModalContext';
+import Loading from '../../../assets/Icons/Loading';
+import images from '../../../assets/images';
+import Button from '../../../components/Button';
+import ItemOrdersListSwip from './components/ItemOrdersListSwip';
+import storage from '../../../utils/handleLocal';
 import timeFunctions, {
   addAndRestDaysToDate,
   convertDateToFormatLocalTime,
-} from '../../utils/handleTimes';
-import ModalAuthorization from '../../components/ModalAuthorization';
-import usePaginate from '../../components/hooks/paginate/usePaginate';
-import useAuth from '../../components/hooks/auth/useAuth';
-import ButtonForPagination from '../../components/ButtonForPagination';
+} from '../../../utils/handleTimes';
+import ModalAuthorization from '../../../components/ModalAuthorization';
+import usePaginate from '../../../components/hooks/paginate/usePaginate';
+import useAuth from '../../../components/hooks/auth/useAuth';
+import ButtonForPagination from '../../../components/ButtonForPagination';
 
 const limitDate = new Date(timeFunctions.getActualDate());
 
@@ -83,19 +83,25 @@ const Orders = () => {
   };
 
   const annularOrderById = async () => {
+    const data_company_or_sucursal = storage.getDataCompany();
+
     setIsLoading(true);
-    try {
-      const response = await annularOrder(orderSelectedToAnnular);
-      const res = buildSuccessResponse(response);
-      res.success ? toast.success(res.msg) : toast.error(res.msg);
-      setAlertModal(false);
-      getOrdersByDates();
-      setIsLoading(false);
-    } catch (error) {
-      toast.error('Error al anular ordener');
+
+    const response = await annularOrder({
+      id_company: data_company_or_sucursal.id_company,
+      id_order: orderSelectedToAnnular,
+    });
+
+    if (response.success === false) {
       setIsLoading(false);
       setAlertModal(false);
+      return toast.error(response.msg);
     }
+
+    toast.success(response.msg);
+    setAlertModal(false);
+    getOrdersByDates();
+    setIsLoading(false);
   };
 
   if (alertModal) {
@@ -209,8 +215,8 @@ const Orders = () => {
                   }}
                   swipeRight={{
                     content: (
-                      <div className='w-full h-full pl-5 bg-blue flex justify-start items-center'>
-                        <SeeIcon color='#fff' classes='lg:w-8 lg:h-8' />
+                      <div className='w-full h-full pl-5 flex justify-start items-center'>
+                        <AiFillEye color='#fff' className='icon-swap' />
                       </div>
                     ),
                     action: () => SeeOrderDetails(order),

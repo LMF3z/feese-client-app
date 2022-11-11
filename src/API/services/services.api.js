@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { buildSuccessResponse } from '../../utils/handleRequest';
 import { headers, base_url } from '../headersAPI';
 
 const registerService = async (data) =>
@@ -18,10 +19,31 @@ export const getServicesByQueryApi = async (query, id_company) =>
     { headers: headers() }
   );
 
-const updateService = async (data) =>
-  await axios.put(`${base_url}/services/update-service`, data, {
-    headers: headers(),
-  });
+export const updateService = async (data) => {
+  try {
+    const response = await axios.put(
+      `${base_url}/services/update-service`,
+      data,
+      {
+        headers: headers(),
+      }
+    );
+
+    const dataResponse = buildSuccessResponse(response);
+
+    return {
+      success: dataResponse.success,
+      msg: dataResponse.msg,
+      data: dataResponse.data,
+    };
+  } catch (error) {
+    return {
+      success: false,
+      msg: 'Error al actualizar servicio',
+      data: null,
+    };
+  }
+};
 
 const deleteService = async ({ id_service, id_company, id_branches }) =>
   await axios.delete(

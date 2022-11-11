@@ -1,16 +1,16 @@
 import { useContext, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
-import { routes } from '../constants';
-import orderApi from '../API/orders/orders.api';
-import Loading from '../assets/Icons/Loading';
-import { ContextApp } from '../Store/ContextApp';
-import calcFunctions from '../utils/calc';
-import storage from '../utils/handleLocal';
-import { buildSuccessResponse } from '../utils/handleRequest';
-import timeFunctions from '../utils/handleTimes';
-import Button from './Button';
-import types from '../Store/contextTypes';
+import { routes } from '../../../../constants';
+import orderApi from '../../../../API/orders/orders.api';
+import Loading from '../../../../assets/Icons/Loading';
+import { ContextApp } from '../../../../Store/ContextApp';
+import calcFunctions from '../../../../utils/calc';
+import storage from '../../../../utils/handleLocal';
+import { buildSuccessResponse } from '../../../../utils/handleRequest';
+import timeFunctions from '../../../../utils/handleTimes';
+import Button from '../../../../components/Button';
+import types from '../../../../Store/contextTypes';
 
 const ModalAssignmentsOrder = ({ closeModal }) => {
   let navigate = useNavigate();

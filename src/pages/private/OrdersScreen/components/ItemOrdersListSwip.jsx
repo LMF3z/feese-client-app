@@ -3,7 +3,7 @@ import React from 'react';
 const ItemOrdersListSwip = ({ orderItem }) => {
   return (
     <div
-      className={`w-full py-5 pl-5 md:p-5 flex flex-col bg-secondaryColor text-white drop-shadow-2xl `}
+      className={`w-full py-5 pl-5 md:p-5 flex flex-col bg-secondaryColor text-white drop-shadow-2xl container-list-item-data`}
     >
       <label
         className={`${orderItem.state_null ? 'line-through text-red-600' : ''}`}

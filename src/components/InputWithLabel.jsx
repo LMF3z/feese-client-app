@@ -11,6 +11,7 @@ const InputWithLabel = (props) => {
           min={'0.01'}
           className='input w-full'
           {...register(name)}
+          autoComplete='off'
         />
       </div>
     );
@@ -24,6 +25,7 @@ const InputWithLabel = (props) => {
         className='input w-full'
         placeholder={placeholder}
         {...register(name)}
+        autoComplete='off'
       />
     </div>
   );

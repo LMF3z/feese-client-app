@@ -7,32 +7,32 @@ import {
   SwipeableListItem,
 } from '@sandstreamdev/react-swipeable-list';
 import ReactPaginate from 'react-paginate';
-import { locale } from '../../constants';
-import FormExpenditureSchema from '../../validations/form.expenditure';
-import Button from '../../components/Button';
-import InputWithLabel from '../../components/InputWithLabel';
-import ShowErrorForm from '../../components/ShowErrorForm';
-import storage from '../../utils/handleLocal';
+import { locale } from '../../../constants';
+import FormExpenditureSchema from '../../../validations/form.expenditure';
+import Button from '../../../components/Button';
+import InputWithLabel from '../../../components/InputWithLabel';
+import ShowErrorForm from '../../../components/ShowErrorForm';
+import storage from '../../../utils/handleLocal';
 import {
   createNewExpenditure,
   deleteExpenditureById,
   getAllExpenditures,
   updateExpenditureById,
-} from '../../API/expenditures/expenditures.api';
+} from '../../../API/expenditures/expenditures.api';
 import toast from 'react-hot-toast';
-import Loading from '../../assets/Icons/Loading';
+import Loading from '../../../assets/Icons/Loading';
 import timeFunctions, {
   convertDateToFormatLocalTime,
-} from '../../utils/handleTimes';
-import EditIcon from '../../assets/Icons/EditIcon';
-import TrashIcon from '../../assets/Icons/TrashIcon';
-import ItemExpendListSwip from '../../components/ItemExpendListSwip';
-import ContainerModalContext from '../../components/ContainerModalContext';
-import ModalAuthorization from '../../components/ModalAuthorization';
-import { getEnableCash } from '../../API/orders/orders.api';
-import usePaginate from '../../components/hooks/paginate/usePaginate';
-import useAuth from '../../components/hooks/auth/useAuth';
-import ButtonForPagination from '../../components/ButtonForPagination';
+} from '../../../utils/handleTimes';
+import ItemExpendListSwip from './components/ItemExpendListSwip';
+import ContainerModalContext from '../../../components/ContainerModalContext';
+import ModalAuthorization from '../../../components/ModalAuthorization';
+import { getEnableCash } from '../../../API/orders/orders.api';
+import usePaginate from '../../../components/hooks/paginate/usePaginate';
+import useAuth from '../../../components/hooks/auth/useAuth';
+import ButtonForPagination from '../../../components/ButtonForPagination';
+import { IoMdTrash } from 'react-icons/io';
+import { FaEdit } from 'react-icons/fa';
 
 const limitDate = new Date(timeFunctions.getActualDate());
 
@@ -364,7 +364,7 @@ const Expenditure = () => {
         </div>
       ) : (
         <>
-          <div className='w-full max-h-50vh mt-3 rounded-lg drop-shadow-2xl overflow-x-visible sm:overflow-x-hidden overflow-y-scroll bg-transparent z-10'>
+          <div className='w-full max-h-50vh mt-3 drop-shadow-2xl overflow-x-visible sm:overflow-x-hidden overflow-y-scroll bg-transparent z-10'>
             <SwipeableList>
               {dataTableExpenditures.map((expenditure) => (
                 <SwipeableListItem
@@ -372,8 +372,8 @@ const Expenditure = () => {
                   blockSwipe={expenditure.state_null}
                   swipeLeft={{
                     content: (
-                      <div className='w-full h-full pr-5 bg-red-600 flex justify-end items-center'>
-                        <TrashIcon color='#fff' classes='lg:w-8 lg:h-8' />
+                      <div className='w-full h-full pr-5 flex justify-end items-center'>
+                        <IoMdTrash color='#fff' className='icon-swap' />
                       </div>
                     ),
                     action: () => {
@@ -383,8 +383,8 @@ const Expenditure = () => {
                   }}
                   swipeRight={{
                     content: (
-                      <div className='w-full h-full pl-5 bg-blue flex justify-start items-center'>
-                        <EditIcon color='#fff' classes='lg:w-8 lg:h-8' />
+                      <div className='w-full h-full pl-5 flex justify-start items-center'>
+                        <FaEdit color='#fff' className='icon-swap' />
                       </div>
                     ),
                     action: () => handleEditMode(expenditure),

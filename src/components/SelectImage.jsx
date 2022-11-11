@@ -26,13 +26,17 @@ const SelectImage = ({ handleImage, image }) => {
       <img
         src={typeof image === 'string' ? image : imageSelect}
         alt='company'
-        className='w-32 h-32 rounded-full mx-auto'
+        className='w-32 h-32 rounded-lg mx-auto'
+        onError={({ currentTarget }) => {
+          currentTarget.onerror = null;
+          currentTarget.src = '/not-image.jpg';
+        }}
       />
       <input
         type='file'
         name='images'
         accept='image/png, image/jpeg, image/jpg'
-        className='w-full h-full absolute top-0 left-0 opacity-0'
+        className='w-32 h-full absolute top-0 left-[30%] opacity-0'
         onChange={handleSelectedImage}
       />
     </div>

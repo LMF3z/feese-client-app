@@ -2,17 +2,17 @@ import { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
 import ReactDatePicker from 'react-datepicker';
 import { useNavigate } from 'react-router-dom';
-import { getPaymentsHistoryCompany } from '../../API/employees/employeesPayments.api';
-import useLoading from '../../components/hooks/useLoading';
-import storage from '../../utils/handleLocal';
 import timeFunctions, {
   addAndRestDaysToDate,
   convertDateToFormatLocalTime,
-} from '../../utils/handleTimes';
-import Button from '../../components/Button';
-import Loading from '../../assets/Icons/Loading';
-import { locale, routes } from '../../constants';
-import useAuth from '../../components/hooks/auth/useAuth';
+} from '../../../utils/handleTimes';
+import useAuth from '../../../components/hooks/auth/useAuth';
+import useLoading from '../../../components/hooks/useLoading';
+import storage from '../../../utils/handleLocal';
+import { getPaymentsHistoryCompany } from '../../../API/employees/employeesPayments.api';
+import Button from '../../../components/Button';
+import Loading from '../../../assets/Icons/Loading';
+import { locale, routes } from '../../../constants';
 
 const headers = ['empleado', 'pagado', 'tipo de pago', 'fecha', 'acciones'];
 const limitDate = new Date(timeFunctions.getActualDate());
