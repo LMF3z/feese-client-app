@@ -1,8 +1,8 @@
 import { useContext } from 'react';
-import { ContextApp } from '../Store/ContextApp';
-import CheckedIcon from '../assets/Icons/CheckedIcon';
-import types from '../Store/contextTypes';
-import { colors } from '../constants';
+import CheckedIcon from '../../../../assets/Icons/CheckedIcon';
+import { colors } from '../../../../constants';
+import { ContextApp } from '../../../../Store/ContextApp';
+import types from '../../../../Store/contextTypes';
 
 const ItemServiceAsig = ({ service }) => {
   const { state, dispatch } = useContext(ContextApp);
@@ -22,12 +22,12 @@ const ItemServiceAsig = ({ service }) => {
       onClick={selectService}
       className={`w-full h-10 rounded-lg flex items-center bg-secondaryColor`}
     >
-      <div className="w-4/5 flex justify-center items-center">
+      <div className='w-4/5 flex justify-center items-center'>
         {service.name_service}
       </div>
-      <div className="w-1/5">
+      <div className='w-1/5'>
         {isSelected && (
-          <CheckedIcon classes="w-5 h-5" color={colors.buttonSuccessColor} />
+          <CheckedIcon classes='w-5 h-5' color={colors.buttonSuccessColor} />
         )}
       </div>
     </div>

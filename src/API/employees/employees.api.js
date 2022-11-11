@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { buildSuccessResponse } from '../../utils/handleRequest';
 import { headers, base_url } from '../headersAPI';
 
 const registerEmployee = async (data) =>
@@ -46,10 +47,30 @@ export const registerUserCompany = async (data) =>
     headers: headers(),
   });
 
-export const deleteUserCompany = async (id) =>
-  await axios.delete(`${base_url}/employees/delete-user-company?id=${id}`, {
-    headers: headers(),
-  });
+export const deleteUserCompany = async (id_company, id_user) => {
+  try {
+    const response = await axios.delete(
+      `${base_url}/employees/delete-user-company?id_company=${id_company}&id=${id_user}`,
+      {
+        headers: headers(),
+      }
+    );
+
+    const dataResponse = buildSuccessResponse(response);
+
+    return {
+      success: dataResponse.success,
+      msg: dataResponse.msg,
+      data: dataResponse.data,
+    };
+  } catch (error) {
+    return {
+      success: false,
+      msg: 'Error al intentar eliminar usuario.',
+      data: null,
+    };
+  }
+};
 
 const employeesApi = {
   registerEmployee,

@@ -4,25 +4,25 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import toast from 'react-hot-toast';
 import Switch from 'react-switch';
-import { colors, routes } from '../../constants';
-import FormEmployeePaymentSchema from '../../validations/form.employeesPayments';
-import Loading from '../../assets/Icons/Loading';
-import Button from '../../components/Button';
-import ShowErrorForm from '../../components/ShowErrorForm';
-import storage from '../../utils/handleLocal';
+import { colors, routes } from '../../../constants';
+import FormEmployeePaymentSchema from '../../../validations/form.employeesPayments';
+import Loading from '../../../assets/Icons/Loading';
+import Button from '../../../components/Button';
+import ShowErrorForm from '../../../components/ShowErrorForm';
+import storage from '../../../utils/handleLocal';
 import timeFunctions, {
   convertDateToFormatLocalTime,
-} from '../../utils/handleTimes';
+} from '../../../utils/handleTimes';
 import {
   getDataEmployeePayment,
   getEmployeePaymentsHistory,
   saveEmployeePayment,
-} from '../../API/employees/employeesPayments.api';
-import useLoading from '../../components/hooks/useLoading';
-import usePaginate from '../../components/hooks/paginate/usePaginate';
-import useAuth from '../../components/hooks/auth/useAuth';
+} from '../../../API/employees/employeesPayments.api';
+import useLoading from '../../../components/hooks/useLoading';
+import usePaginate from '../../../components/hooks/paginate/usePaginate';
+import useAuth from '../../../components/hooks/auth/useAuth';
 import ReactPaginate from 'react-paginate';
-import ButtonForPagination from '../../components/ButtonForPagination';
+import ButtonForPagination from '../../../components/ButtonForPagination';
 
 const headers = ['pagado', 'tipo de pago', 'fecha', 'acciones'];
 const actualDate = new Date(timeFunctions.getActualDate());
@@ -109,41 +109,42 @@ const PaymentsWorkers = () => {
       );
     }
 
-    try {
-      toggleLoading(true);
-
-      const data_company_or_sucursal = await storage.getDataCompany();
-
-      data.id_company = data_company_or_sucursal?.id_company
-        ? data_company_or_sucursal?.id_company
-        : null;
-      data.id_branches = data_company_or_sucursal?.id_branches
-        ? data_company_or_sucursal?.id_branches
-        : null;
-
-      data.id_employee = +id;
-
-      data.date = convertDateToFormatLocalTime(actualDate);
-
-      const response = await saveEmployeePayment(data);
-
-      const dataRes = buildSuccessResponse(response);
-
-      dataRes.success ? toast.success(dataRes.msg) : toast.error(dataRes.msg);
-      dataRes.success && reset();
-      dataRes.success && getDataPayment();
-      dataRes.success && getHistoryListPayments();
-
-      toggleLoading(false);
-    } catch (error) {
-      toast.error('Error al registrar nuevo pago.');
-      toggleLoading(false);
+    if (data.payment_amount <= 0) {
+      return toast.error('Total a pagar debe ser mayor a cero.');
     }
+
+    toggleLoading(true);
+
+    const data_company_or_sucursal = await storage.getDataCompany();
+
+    data.id_company = data_company_or_sucursal?.id_company
+      ? data_company_or_sucursal?.id_company
+      : null;
+    data.id_branches = data_company_or_sucursal?.id_branches
+      ? data_company_or_sucursal?.id_branches
+      : null;
+    data.id_employee = +id;
+    data.date = convertDateToFormatLocalTime(actualDate);
+    data.totalGenerate = employeeData.totalGenerate;
+
+    const response = await saveEmployeePayment(data);
+
+    if (response.success === false) {
+      toggleLoading(false);
+      return toast.error(response.msg);
+    }
+
+    toast.success(response.msg);
+    reset();
+    getDataPayment();
+    getHistoryListPayments();
+    toggleLoading(false);
   };
 
   const handleTypePayment = () => {
     setIsCompletePayment(!isCompletePayment);
     setValue('payment_amount', employeeData.totalToPay);
+    setValue('payment_type', isCompletePayment ? 'advance' : 'complete');
   };
 
   return (
@@ -188,10 +189,10 @@ const PaymentsWorkers = () => {
               disabled={isCompletePayment}
               {...register('payment_type')}
             >
-              <option value='complete' selected>
-                Pago completo
+              <option value='complete'>Pago completo</option>
+              <option value='advance' selected>
+                Adelanto
               </option>
-              <option value='advance'>Adelanto</option>
             </select>
             {errors?.payment_type?.message && (
               <ShowErrorForm label={errors?.payment_type?.message} />
@@ -280,7 +281,15 @@ const PaymentsWorkers = () => {
               </label>
             </p>
             <p>
-              Total a pagar: <label>${employeeData.totalToPay}</label>
+              {employeeData.totalToPay < 0 ? (
+                <>
+                  Debe: <label>${employeeData.totalToPay}</label>
+                </>
+              ) : (
+                <>
+                  Total a pagar: <label>${employeeData.totalToPay}</label>
+                </>
+              )}
             </p>
           </section>
         </div>

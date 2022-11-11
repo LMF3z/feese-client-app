@@ -8,19 +8,19 @@ import Login from './pages/public/Login';
 import PublicComponents from './components/PublicComponents';
 import PrivateComponents from './components/PrivateComponents';
 // private
+import DetailsEmployeePayment from './pages/private/EmployeesScreen/DetailsEmployeePayment';
+import Employees from './pages/private/EmployeesScreen/Employees';
+import Expenditure from './pages/private/ExpenditureScreen/Expenditure';
 import MainApp from './pages/private/MainAppScreen/MainApp';
-import Employees from './pages/private/Employees';
-import Services from './pages/private/Services';
 import NotFoundPage from './pages/NotFoundPage';
-import OrderReceipt from './pages/private/OrderReceipt';
-import Orders from './pages/private/Orders';
+import OrderReceipt from './pages/private/MainAppScreen/OrderReceipt';
+import Orders from './pages/private/OrdersScreen/Orders';
+import PaymentsWorkers from './pages/private/EmployeesScreen/PaymentsWorkers';
+import PaymentsWorkersHistories from './pages/private/PaymentWorkersHistoryScreen/PaymentsWorkersHistories';
 import ProfileCompany from './pages/private/ProfileCompany';
-import Expenditure from './pages/private/Expenditure';
-import PaymentsWorkers from './pages/private/PaymentsWorkers';
-import PaymentsWorkersHistories from './pages/private/PaymentsWorkersHistories';
-import DetailsEmployeePayment from './pages/private/DetailsEmployeePayment';
-import UsersCompany from './pages/private/UsersCompanyScreen/UsersCompany';
+import Services from './pages/private/ServicesScreen/Services';
 import SubscriptionCompany from './pages/private/SubscriptionCompany';
+import UsersCompany from './pages/private/UsersCompanyScreen/UsersCompany';
 
 const App = () => {
   return (

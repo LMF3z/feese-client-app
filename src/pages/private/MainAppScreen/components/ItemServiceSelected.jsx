@@ -1,6 +1,6 @@
 import { useContext } from 'react';
-import { ContextApp } from '../Store/ContextApp';
-import types from '../Store/contextTypes';
+import { ContextApp } from '../../../../Store/ContextApp';
+import types from '../../../../Store/contextTypes';
 
 const ItemServiceSelected = ({ service }) => {
   const { dispatch } = useContext(ContextApp);
@@ -18,10 +18,10 @@ const ItemServiceSelected = ({ service }) => {
     >
       <label>{service.name_service}</label>
       <input
-        type="number"
-        step="1"
-        min="1"
-        className="w-10 text-base text-center outline-none bg-secondaryColor border border-white rounded-lg"
+        type='number'
+        step='1'
+        min='1'
+        className='w-10 text-base text-center outline-none bg-secondaryColor border border-white rounded-lg'
         value={service.amount}
         onChange={handleChange}
       />

@@ -7,17 +7,18 @@ import {
 } from '../../../utils/handleRequest';
 import toast from 'react-hot-toast';
 import Loading from '../../../assets/Icons/Loading';
-import ItemServiceAsig from '../../../components/ItemServiceAsig';
 import { ContextApp } from '../../../Store/ContextApp';
-import ItemServiceSelected from '../../../components/ItemServiceSelected';
-import Button from '../../../components/Button';
-import ContainerModalContext from '../../../components/ContainerModalContext';
-import ModalCreateClient from '../../../components/ModalCreateClient';
-import ModalAssignEmployee from '../ModalAssignEmployee';
-import ModalAssignmentsOrder from '../../../components/ModalAssignmentsOrder';
-import AutoSuggest from '../../../components/AutoSuggest';
 import types from '../../../Store/contextTypes';
+import ContainerModalContext from '../../../components/ContainerModalContext';
+import Button from '../../../components/Button';
+import ItemServiceSelected from './components/ItemServiceSelected';
+import AutoSuggest from '../../../components/AutoSuggest/AutoSuggest';
+import ItemServiceAsig from './components/ItemServiceAsig';
 import useAuth from '../../../components/hooks/auth/useAuth';
+import ItemSuggest from '../../../components/AutoSuggest/components/ItemSuggest';
+import ModalCreateClient from './components/ModalCreateClient';
+import ModalAssignEmployee from './components/ModalAssignEmployee';
+import ModalAssignmentsOrder from './components/ModalAssignmentsOrder';
 
 const MainApp = () => {
   const { state, dispatch } = useContext(ContextApp);
@@ -119,21 +120,19 @@ const MainApp = () => {
 
   const renderItemClient = (item) => {
     return (
-      <div className='w-full h-12 bg-SelectColor relative z-0 p-1'>
-        <div className='h-10 flex justify-center items-center hover:bg-secondaryColor rounded-lg'>
+      <ItemSuggest>
+        <span className='capitalize'>
           {item.name} - {item.last_name}
-        </div>
-      </div>
+        </span>
+      </ItemSuggest>
     );
   };
 
   const renderItemService = (item) => {
     return (
-      <div className='w-full h-12 bg-SelectColor relative z-0 p-1'>
-        <div className='h-10 flex justify-center items-center hover:bg-secondaryColor rounded-lg'>
-          {item.name_service}
-        </div>
-      </div>
+      <ItemSuggest>
+        <span className='capitalize'>{item.name_service}</span>
+      </ItemSuggest>
     );
   };
 
@@ -265,10 +264,6 @@ const MainApp = () => {
         label='Asignar'
         classes='my-3'
       />
-
-      {/* <div className="w-full h-10 flex justify-end items-center mt-3">
-        
-      </div> */}
     </div>
   );
 };

@@ -2,14 +2,14 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import FormClientSchema from '../validations/form.client';
-import Button from './Button';
-import ShowErrorForm from './ShowErrorForm';
-import Loading from '../assets/Icons/Loading';
-import { createClient } from '../API/clients/clients.api';
-import { buildSuccessResponse } from '../utils/handleRequest';
-import storage from '../utils/handleLocal';
-import InputWithLabel from './InputWithLabel';
+import InputWithLabel from '../../../../components/InputWithLabel';
+import Button from '../../../../components/Button';
+import ShowErrorForm from '../../../../components/ShowErrorForm';
+import FormClientSchema from '../../../../validations/form.client';
+import Loading from '../../../../assets/Icons/Loading';
+import { createClient } from '../../../../API/clients/clients.api';
+import { buildSuccessResponse } from '../../../../utils/handleRequest';
+import storage from '../../../../utils/handleLocal';
 
 const ModalCreateClient = ({ closeModal }) => {
   const {
@@ -58,28 +58,28 @@ const ModalCreateClient = ({ closeModal }) => {
   };
 
   return (
-    <div className="w-full min-h-full bg-primaryColor">
-      <div className="w-full text-center">{isLoading && <Loading />}</div>
+    <div className='w-full min-h-full bg-primaryColor'>
+      <div className='w-full text-center'>{isLoading && <Loading />}</div>
       <form onSubmit={handleSubmit(createNewClient)}>
-        <div className="container_square_form grid grid-cols-1 gap-3">
-          <div className="w-full">
+        <div className='container_square_form grid grid-cols-1 gap-3'>
+          <div className='w-full'>
             <InputWithLabel
-              label="Nombre"
-              type="text"
-              placeholder="Nombre"
-              name="name_client"
+              label='Nombre'
+              type='text'
+              placeholder='Nombre'
+              name='name_client'
               register={register}
             />
             {errors?.name_client?.message && (
               <ShowErrorForm label={errors?.name_client?.message} />
             )}
           </div>
-          <div className="w-full">
+          <div className='w-full'>
             <InputWithLabel
-              label="Apellido"
-              type="text"
-              placeholder="Apellido"
-              name="last_name_client"
+              label='Apellido'
+              type='text'
+              placeholder='Apellido'
+              name='last_name_client'
               register={register}
             />
             {errors?.last_name_client?.message && (
@@ -87,24 +87,24 @@ const ModalCreateClient = ({ closeModal }) => {
             )}
           </div>
 
-          <div className="w-full">
+          <div className='w-full'>
             <InputWithLabel
-              label="Identificación"
-              type="text"
-              placeholder="Identificación"
-              name="identification_client"
+              label='Identificación'
+              type='text'
+              placeholder='Identificación'
+              name='identification_client'
               register={register}
             />
             {errors?.identification_client?.message && (
               <ShowErrorForm label={errors?.identification_client?.message} />
             )}
           </div>
-          <div className="w-full">
+          <div className='w-full'>
             <InputWithLabel
-              label="Teléfono"
-              type="text"
-              placeholder="Teléfono"
-              name="phone_client"
+              label='Teléfono'
+              type='text'
+              placeholder='Teléfono'
+              name='phone_client'
               register={register}
             />
             {errors?.phone_client?.message && (
@@ -113,7 +113,7 @@ const ModalCreateClient = ({ closeModal }) => {
           </div>
         </div>
 
-        <Button label="Guardar" classes="my-3" />
+        <Button label='Guardar' classes='my-3' />
       </form>
     </div>
   );

@@ -47,11 +47,14 @@ const SubscriptionCompany = () => {
       }
 
       setMemberShipData({
-        priceMembership: data.data.priceMembership,
-        rateDollar: data.data.rateDollar,
-        totalToPay: data.data.totalToPayment,
-        stateMembership: data.data.stateMembership,
-        lastDatePayment: data.data.lastDatePayment,
+        priceMembership: data?.data?.priceMembership,
+        rateDollar: data?.data?.rateDollar,
+        totalToPay: data?.data?.totalToPayment,
+        stateMembership: data?.data?.stateMembership,
+        lastDatePayment: data?.data?.lastDatePayment,
+        nextPaymentDate: data?.data?.nextPaymentDate
+          ? data?.data?.nextPaymentDate.split('T')[0]
+          : '',
       });
 
       setIsLoading(false);
@@ -82,7 +85,7 @@ const SubscriptionCompany = () => {
 
       dataRes.success ? toast.success(dataRes.msg) : toast.error(dataRes.msg);
       dataRes.success && reset();
-      dataRes.success && getMembershipData();
+      dataRes.success && (await getMembershipData());
 
       setIsLoading(false);
     } catch (error) {
@@ -115,13 +118,25 @@ const SubscriptionCompany = () => {
                 {memberShipData?.stateMembership}
               </span>
             </label>
-            <label>
-              Ultimo Pago:{' '}
-              <span className='text-lg text-white'>
-                {memberShipData?.lastDatePayment &&
-                  getDateWithOutTime(memberShipData?.lastDatePayment)}
-              </span>
-            </label>
+
+            {memberShipData?.lastDatePayment && (
+              <label>
+                Ultimo Pago:{' '}
+                <span className='text-lg text-white'>
+                  {getDateWithOutTime(memberShipData?.lastDatePayment)}
+                </span>
+              </label>
+            )}
+
+            {memberShipData?.nextPaymentDate && (
+              <label>
+                Próximo Pago:{' '}
+                <span className='text-lg text-white'>
+                  {getDateWithOutTime(memberShipData?.nextPaymentDate)}
+                </span>
+              </label>
+            )}
+
             <label>
               Tasa del día:{' '}
               <span className='text-lg text-white'>

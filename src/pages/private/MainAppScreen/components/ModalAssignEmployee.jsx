@@ -1,20 +1,21 @@
 import { useContext, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import ReactPaginate from 'react-paginate';
-import employeesApi from '../../API/employees/employees.api';
-import Loading from '../../assets/Icons/Loading';
-import AutoSuggest from '../../components/AutoSuggest';
-import Button from '../../components/Button';
-import ButtonForPagination from '../../components/ButtonForPagination';
-import usePaginate from '../../components/hooks/paginate/usePaginate';
-import ItemEmployeeAsig from '../../components/ItemEmployeeAsig';
-import { ContextApp } from '../../Store/ContextApp';
-import types from '../../Store/contextTypes';
-import storage from '../../utils/handleLocal';
+import employeesApi from '../../../../API/employees/employees.api';
+import Loading from '../../../../assets/Icons/Loading';
+import AutoSuggest from '../../../../components/AutoSuggest/AutoSuggest';
+import ItemSuggest from '../../../../components/AutoSuggest/components/ItemSuggest';
+import Button from '../../../../components/Button';
+import ButtonForPagination from '../../../../components/ButtonForPagination';
+import usePaginate from '../../../../components/hooks/paginate/usePaginate';
+import ItemEmployeeAsig from './ItemEmployeeAsig';
+import { ContextApp } from '../../../../Store/ContextApp';
+import types from '../../../../Store/contextTypes';
+import storage from '../../../../utils/handleLocal';
 import {
   buildSuccessResponse,
   getEmployeesByQuery,
-} from '../../utils/handleRequest';
+} from '../../../../utils/handleRequest';
 
 const ModalAssignEmployee = ({ closeModal }) => {
   const { dispatch } = useContext(ContextApp);
@@ -94,17 +95,15 @@ const ModalAssignEmployee = ({ closeModal }) => {
 
   const renderItemEmployee = (item) => {
     return (
-      <div className='w-full h-12 bg-SelectColor relative z-0 p-1'>
-        <div className='h-10 flex justify-center items-center hover:bg-secondaryColor rounded-lg'>
-          {item.name}
-        </div>
-      </div>
+      <ItemSuggest>
+        <span className='capitalize'>{item.name}</span>
+      </ItemSuggest>
     );
   };
 
   return (
     <>
-      <div className='container_section'>
+      <div className='py-2 text-base md:text-lg'>
         <div className='w-full h-10 mb-3'>
           <AutoSuggest
             inputProps={{ placeholder: 'Buscar empleados' }}

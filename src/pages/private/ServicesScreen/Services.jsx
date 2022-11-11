@@ -6,23 +6,23 @@ import {
   SwipeableList,
   SwipeableListItem,
 } from '@sandstreamdev/react-swipeable-list';
+import { IoMdTrash } from 'react-icons/io';
+import { FaEdit } from 'react-icons/fa';
 import ReactPaginate from 'react-paginate';
 
-import validationServices from '../../validations/form.services';
-import servicesAPI from '../../API/services/services.api';
-import Loading from '../../assets/Icons/Loading';
-import Button from '../../components/Button';
-import ShowErrorForm from '../../components/ShowErrorForm';
-import storage from '../../utils/handleLocal';
-import ContainerModalContext from '../../components/ContainerModalContext';
-import ModalAuthorization from '../../components/ModalAuthorization';
-import EditIcon from '../../assets/Icons/EditIcon';
-import TrashIcon from '../../assets/Icons/TrashIcon';
-import ItemServiceListSwip from '../../components/ItemServiceListSwip';
-import usePaginate from '../../components/hooks/paginate/usePaginate';
-import useAuth from '../../components/hooks/auth/useAuth';
-import ButtonForPagination from '../../components/ButtonForPagination';
-import InputWithLabel from '../../components/InputWithLabel';
+import validationServices from '../../../validations/form.services';
+import servicesAPI, { updateService } from '../../../API/services/services.api';
+import Loading from '../../../assets/Icons/Loading';
+import Button from '../../../components/Button';
+import ShowErrorForm from '../../../components/ShowErrorForm';
+import storage from '../../../utils/handleLocal';
+import ContainerModalContext from '../../../components/ContainerModalContext';
+import ModalAuthorization from '../../../components/ModalAuthorization';
+import ItemServiceListSwip from './components/ItemServiceListSwip';
+import usePaginate from '../../../components/hooks/paginate/usePaginate';
+import useAuth from '../../../components/hooks/auth/useAuth';
+import ButtonForPagination from '../../../components/ButtonForPagination';
+import InputWithLabel from '../../../components/InputWithLabel';
 
 const Services = () => {
   const {
@@ -56,7 +56,7 @@ const Services = () => {
 
   const createService = async (data) => {
     if (isEditMode) {
-      updateService(data);
+      handleUpdateService(data);
       return;
     }
 
@@ -133,28 +133,24 @@ const Services = () => {
     setValue('price_service', service.price_service);
   };
 
-  const updateService = async (data) => {
-    try {
-      setIsLoading(true);
+  const handleUpdateService = async (data) => {
+    const dataCompany = await storage.getDataCompany();
 
-      const response = await servicesAPI.updateService(data);
+    setIsLoading(true);
+    data.id_company = dataCompany.id_company;
 
-      const updatedData = buildSuccessResponse(response);
+    const response = await updateService(data);
 
-      updatedData.success
-        ? toast.success(updatedData.msg, { duration: 5000 })
-        : toast.error(response.msg, { duration: 5000 });
-
-      updatedData.success && reset();
-
-      updatedData.success && (await getServices());
-
+    if (response.success === false) {
       setIsLoading(false);
-      setIsEditMode(false);
-    } catch (error) {
-      setIsLoading(false);
-      toast.error('Error al actualizar empleado.', { duration: 5000 });
+      return toast.error(response.msg);
     }
+
+    toast.success(response.msg);
+    reset();
+    await getServices();
+    setIsLoading(false);
+    setIsEditMode(false);
   };
 
   const deleteService = async () => {
@@ -258,15 +254,15 @@ const Services = () => {
         </div>
       ) : (
         <>
-          <div className='w-full max-h-65vh mt-5 rounded-lg drop-shadow-2xl overflow-x-visible sm:overflow-x-hidden overflow-y-scroll z-10'>
+          <div className='w-full max-h-65vh mt-5 drop-shadow-2xl overflow-x-visible sm:overflow-x-hidden overflow-y-scroll z-10'>
             <SwipeableList>
               {dataTableServices.map((serviceItem) => (
                 <SwipeableListItem
                   key={serviceItem.id}
                   swipeLeft={{
                     content: (
-                      <div className='w-full h-full pr-5 bg-red-600 flex justify-end items-center'>
-                        <TrashIcon color='#fff' classes='lg:w-8 lg:h-8' />
+                      <div className='w-full h-full pr-5 flex justify-end items-center'>
+                        <IoMdTrash color='#fff' className='icon-swap' />
                       </div>
                     ),
                     action: () => {
@@ -276,8 +272,8 @@ const Services = () => {
                   }}
                   swipeRight={{
                     content: (
-                      <div className='w-full h-full pl-5 bg-blue flex justify-start items-center'>
-                        <EditIcon color='#fff' classes='lg:w-8 lg:h-8' />
+                      <div className='w-full h-full pl-5 flex justify-start items-center'>
+                        <FaEdit color='#fff' className='icon-swap' />
                       </div>
                     ),
                     action: () => handleEditMode(serviceItem),

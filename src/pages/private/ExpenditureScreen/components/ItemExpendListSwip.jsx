@@ -1,8 +1,10 @@
 const ItemExpendListSwip = ({ expendItem }) => {
   return (
-    <article className='w-full flex flex-col justify-center items-start md:grid md:grid-cols-2 md:grid-rows-1 py-5 pl-5 md:p-5 drop-shadow-2xl bg-secondaryColor md:text-center'>
+    <article className='w-full py-5 pl-5 md:p-5 flex flex-col justify-center items-start md:grid md:grid-cols-2 md:grid-rows-1 drop-shadow-2xl bg-secondaryColor md:text-center container-list-item-data'>
       <section>
-        <label>{expendItem.description_expenditure}</label>
+        <label className='capitalize'>
+          {expendItem.description_expenditure}
+        </label>
       </section>
 
       <section>

@@ -30,10 +30,6 @@
     @apply text-2xl text-white capitalize;
   }
   
-  /* span {
-    @apply font-bold text-white;
-  } */
-  
   label {
     @apply text-textWhite;
   }
@@ -43,9 +39,26 @@
   }
 }
 
+.container-list-item-data {
+  @apply border-2 border-borderBaseColor;
+}
+
 .react-autosuggest__suggestions-container--open {
   max-height: 100px;
   overflow-y: auto;
+}
+
+.container-items-list-autosuggest {
+  @apply w-full h-12 bg-secondaryColor relative z-10;
+}
+
+.item-list-autosuggest {
+  @apply h-10 flex justify-center items-center hover:bg-primaryColor border-2 border-borderBaseColor rounded-lg;
+}
+
+.icon-swap {
+  width: 2.25rem;
+  height: 2.25rem;
 }
 
 ::-webkit-scrollbar {
